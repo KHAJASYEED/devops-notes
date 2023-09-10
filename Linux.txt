@@ -1,0 +1,870 @@
+
+     #######  KodeKloud  #######
+
+    ### @@@@  Linux  @@@@ ###
+	
+	
+	
+	              COMMANDS	
+	
+	$ who  --------------- to see the user
+	$ whoami -----------------
+    $ last -------------------------------- it shows who access the system 
+	$ su  <username> ------------------------------ change user
+	
+	
+	          SUDO
+			  
+	$ cat /etc/sudoers   ---------------------- to see the sudoers users
+   $ visudo    ------------------------------ to ad users to sudoers file 	
+   
+   
+                 Access Control Files
+				 
+				 
+	$ cat  /etc/passwd    -------------------------------------------- to see the users 
+    $ cat /etc/group  ------------------------------------------- to see groups 
+   $ cat /etc/shadow  ------------------------------------------ to see the passwords of user 	
+	\
+	$ cat  /etc/passwd | grep  -i  <username>  ----------- 	 to see single user
+	
+	
+                   Managing Users
+
+ $ useradd bob   ---------------------- to add user bob 
+ $ passwd bob  --------------------- to set password to user 
+ $ cat /etc/passwd  | grep bob  ---------- to see bob user 
+ $ userdel  -r bob  --------------------- to delete user bob 
+ 
+ 
+           Managing Users
+		   
+  $ useradd -u 1009 -g 1009 -d /home/robert -s /bin/bash -c ”Mercury Project member" bob
+  
+     -u ---- specific UID
+	 -g ---- specific GID
+	 -d ----- custom home directory 
+	 -s ------ specify login shell 
+	 -c ----- comment
+	 
+	 
+  $ usermod -u 1010 	 bob  ------------------- change UID of bob 
+  
+  $ usermod -u 2020 -g 2020 bob ------------ change UID GID of bob 
+  
+  $ groupadd –g 1011 developer  -------------- change GIB of developer group 
+	 
+  
+    
+
+  $ id bob 
+uid=1009(bob) gid=1009(avenger) groups=1009(avenger)
+  
+  
+ 
+ $ groupadd <groupname>    ----------- to add group
+ $ cat /etc/group   ---------------------- to se group 
+ $ groupdel -r <groupname>   -------------- to delete group 
+ 
+ 
+ 
+              Linux File - Permissions
+          
+		  -rwx          rwx               r-x
+		  owner      Group         Others
+             u              g                  o
+			 
+	Bit      Purpose        Octal Value
+    r           Read              4
+   w          Write               2
+   x        Execute             1
+   -       No permission    0   
+   
+   
+      Linux File Permissions
+	  
+        rwx         rw-          -wx         r-x
+     4+2+1     4+2+0       0+2+1     4+0+1
+        7              6               3             5
+		
+		
+		
+		Modifying File Permissions
+
+     chmod <permissions> file
+
+      $ chmod u+rwx test-file   ---------------------    Provide full access to Owners
+
+    $ chmod ugo+r-x test-file  ------------------     Provide Read access to Owners, groups and others, Remove execute access
+	
+   $ chmod o-rwx test-file    ------------------             Remove all access for others
+  
+  $ chmod u+rwx,g+r-x,o-rwx test-file ------------ Full access for Owner, add read ,remove execute for group and no access for others
+  
+  
+  
+  
+  
+           Modifying File Ownership Permissions
+		   
+	chown owner:group file 
+	
+  $ chown bob:developer test-file     ------------------------------------          Changes owner to bob and group to developer
+  
+  $ chown bob andoid.apk     --------------------------------------        Changes just the owner of the file to bob. Group unchanged.
+ 
+  $ chgrp android test-file    --------------------------------------------  Change the group for the test-file to the group called android.	   
+  
+  
+  
+                                   SSH
+								   
+	 ssh <hostname OR IP Address>    ----------------------------------------------
+
+    ssh <user>@<hostname OR IP Address>   ----------------------------
+
+    ssh –l <user> <hostname OR IP Address>	-------------------------------
+
+
+  
+      
+
+            	  PASSWORD-LESS  SSH 
+
+
+   [bob@caleston-lp10 ~]$ ssh-keygen    -------------------- it generate public key and private key 
+
+   [bob@caleston-lp10 ~]$ cd .ssh/    ----------------------- in this dir, keys are created 
+
+   [bob@caleston-lp10 ~]$ ls    
+
+
+                 
+
+               				 PASSWORD-LESS SSH
+
+  bob@caleston-lp10 ~]$ ssh-copy-id bob@devapp01    ---------------------------------
+  
+  [bob@caleston-lp10 ~]$ ssh devapp01   ------------------------ 
+  
+  
+  
+  
+                      Networking Basics
+					  
+	192.168.1.10                DNS-SERVER                      192.168.1.11   
+
+
+   $ ping 192.168.1.11   ------------------------------------------------------------ ping command to check 
+Reply from 192.168.1.11: bytes=32 time=4ms TTL=117
+Reply from 192.168.1.11: bytes=32 time=4ms TTL=117	
+
+
+    $ hostname   --------------------------------------------------------------------------- to see the hostname 
+
+
+    $ ping db    ------------------------------------------------------- ping db 
+ping: unknown host db
+
+
+        $ vi  /etc/hosts   -------------------------------------------------------------
+		
+		192.168.1.11     db
+		192.168.1.11    www.google.com
+		
+		:wq 
+		
+		
+		$ ping db  ------------------------------------------------------------------------------ ping command 
+PING db (192.168.1.11) 56(84) bytes of data.
+64 bytes from db (192.168.1.11): icmp_seq=1 ttl=64 time=0.052 ms
+64 bytes from db (192.168.1.11): icmp_seq=2 ttl=64 time=0.079 ms
+
+
+
+
+
+            A                                                                                           B
+   192.168.1.10                                                                           192.168.1.11
+
+
+$ cat >> /etc/hosts                                                                    $ cat >> /etc/hosts
+192.168.1.10          web                                                                 192.168.1.10      web
+192.168.1.11          db                                                                    192.168.1.11      db
+192.168.1.12          nfs                                                                   192.168.1.12       nfs                
+
+
+
+
+
+            C
+	192.168.1.12	
+  $ cat >> /etc/hosts
+  192.168.1.10     web
+  192.168.1.11     db
+  192.168.1.12      nfs
+
+
+
+                                    Domain Names
+									
+.com                           .net                        .edu                     .org                           .io
+www.google           www.behance           www.stanford       www.care            www.kubernetes
+www.facebook        www.speedtest        www.mit               www.un                www.codepen
+
+
+
+                                 Domain Names
+														
+     Root                                             .
+                                                       
+Top Level Domain Name                 .COM
+
+                                                      google                                            
+
+           Subdomain :    mail    drive  www   maps  apps
+
+
+	
+     Command and Arguments
+
+ # echo -------   is used to print the data, and add data to a file
+
+  # echo "Hello World"  
+
+  # echo "Hey baby how r u..?" > baby.txt  ---- This command is used to create a file, and add data in that file.
+
+  # $ uptime
+ 19:15:11 up  4:59,  1 user,  load average: 0.00, 0.01, 0.05
+
+ # command <options> <arguments>
+   echo = command  
+   option = -n 
+   Hello = argument
+
+ # echo -n Hello 
+
+
+  Command Types
+
+ Internal or Built-in Commands 
+echo, cd, pwd,set e.t.c
+
+ External Commands
+mv, date, uptime, cp,uptime e.t.c
+
+ # pwd ----- pwd (presentworking directory)
+
+ # ls ------ Ls (List contents)
+
+ # mkdir ---- mkdir (make a new directory)
+
+ # mkdir shop mart school ----- mkdir (multiple directories)
+
+ # cd mart  ---- cd (change directory) 
+
+ # cd ..  ------ One step back
+
+ # cd ../..  ----- two steps back
+
+ # cd  ----- its goes to the home directory
+
+
+
+   Absolute Path and Relative Path
+
+   Absolute Path
+
+ # cd /home/michael/school
+
+
+  Relative Path
+
+ # cd school  
+
+
+  mv (Move file or directory)
+
+ $ mv /home/michael/Europe/Morocco /home/michael/Africa/
+
+ $ mv Europe/Morocco Africa/
+
+ $ mv Asia/India/Munbai Asia/India/Mumbai
+
+
+  cp (Copy file)
+
+ $ cp Asia/India/Mumbai/City.txt Africa/Egypt/Cairo/
+
+
+ cp -r (Copy directory)
+
+ $ cp –r Europe/UK Europe/Unitedkingdom
+
+
+
+  rm (Remove file or directory)
+
+ $ rm Europe/UK/London/Tottenham.txt
+
+
+  
+   cat to see the content in a file
+
+  $ cat Asia/India/Mumbai/City.txt 
+
+
+   cat (redirect)
+
+ cat > Africa/Egypt/Cairo/City.txt Cairo  
+
+
+  touch (create a new file)
+
+ $ touch /home/michael/Asia/China/Country.txt
+
+
+     LS (Long List)
+
+ ls  ----- 
+
+ ll ----- Long list with permissions 
+
+ ls -a ----- to see the hidden files and folder
+
+ ls -ltrh  ----- (long list files in the reverse order created)
+
+
+
+    Shell Types
+
+
+  Bourne Shell (sh)  
+  Z Shell (zsh)
+ Bourne again Shell (bash)
+
+ $ echo $SHELL  ---- To see the shell type
+/bin/bash
+
+ $ chsh
+Password:
+Changing the login shell for michael
+Enter the new value, or press ENTER for the default Login Shell [/bin/bash]: /bin/sh
+
+
+
+   Alias 
+
+ alias dt=date  -------- set alias names (like shotcuts)
+ 
+ $ alias ----- to see all alias names
+
+ $ unalias <name> ---- to remove alias name
+
+
+ $ echo $SHELL  ----- it shows the login shell
+/bin/bash
+ 
+
+
+         env variables
+
+
+ $ env  ----- this command shows the all env variables
+LANG=en_CA.UTF-8 GDM_LANG=en_CA DISPLAY=:0 GTK_OVERLAY_SCROLLING= 1
+COLORTERM=truecolor
+
+
+ $ echo $LOGNAME
+ vagrant
+
+ echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/b in:/sbin:/bin
+
+
+ $ export OFFICE=caleston
+
+ $ OFFICE=caleston
+
+
+ ~/.profile or ~/.bashrc ---- to save it perment, go to .bashrc
+
+  $ vi .bashrc
+
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+  export OFFICE=caleston  ------ add this line
+
+  :wq 
+
+
+
+
+
+            Bash Prompt
+
+ $ echo $PS1  ----- 
+ [\u@\h \W]\$     
+   
+       \u  ------ user 
+	   \h ------ hostname
+	   \w ------ working dir 
+	   
+	   
+ $ PS1=“ubuntu-server:”   
+ubuntu-server:
+
+ ubuntu-server:  echo $PS1
+ubuntu-server:  
+
+ 
+  ubuntu-server: PS1="[\d \t \u@\h:\w ] $ " 
+ [Thu Mar 12 22:12:54 bob@caleston:~ ] $     
+
+\d :the date in “Weekday M onth Date”format (e.g.,“Tue M ay 26”)
+
+\t:the currenttime in 24-hour HH:MM :SS format
+
+\u :the username of the currentuser
+
+\@ :the currenttime in 12-hour am/pm format
+
+\h :the hostname HQDN
+
+\w :the current working directory, with $HOME abbreviated with a tilde
+
+\H :the complete hostname
+
+\s :the name of the shell
+
+\t:the currenttime in 24-hour HH:MM :SS format
+
+\T :the current time in 12-hour HH:M M :SS format
+
+\@ :the currenttime in 12-hour am/pm format
+
+\A :the currenttime in 24-hour HH:MM format
+
+\u :the username of the currentuser
+
+
+\W :the basename of the current working directory, with $HOME abbreviated
+with a tilde
+
+\$ :if the effective UID is 0, a #,otherwise a $ 
+
+
+
+   $ lsblk   ----------  to see the block divices
+   
+   $ lscpu  ----- to see the cpu
+   
+   $ lshw   ---- to see the hardware
+   
+   $ free -m  ----- to see the ram size
+   
+   
+   
+            File Types in Linux   
+			
+	Regular File              
+	                 Images,Scripts,Configuration /Data files
+   
+   Directory 
+              /home/bob
+             /root
+            /home/bob/code-directory
+
+   
+   Special Files		
+                 Character Files,Block Files,Sockets Files
+
+
+      Links   
+            	  Hard Links ,   Soft Links
+				  
+				  
+	file /home/michael/   ---------- to see the file type 
+/home/michael/: directory			  
+            
+
+    $ file bash-script.sh
+bash-script.sh: Bourne-Again shell script, UTF-8 Unicode text
+executable
+   
+   
+   
+   
+      Introduction to Package Managers
+	  
+	.DEB
+          Ubuntu, Debian, Linux M int  
+
+   .RPM
+          RHEL, Centos, Fedora
+		  
+		  
+		  Types of Package Managers
+
+ DPKG               RPM
+  APT                   YUM
+  APT-GET           DNF
+         
+		 
+		 Working with RPM
+		 
+    Installation  ----------    $ rpm –ivh telnet.rpm
+    Uninstalling   -------      $ rpm –e telnet.rpm
+    Upgrade  --------------   $ rpm –Uvh telnet.rpm
+   Query  ------------------   $ rpm –q telnet.rpm
+   Verifying   -------------    $ rpm –Vf <path to file>RPM Based Dist
+   
+   
+   
+           Working with DPKG
+		   
+    Installation / Upgrade  --------------   $ dpkg -i telnet.deb
+    Uninstalling   -------------------------     $ dpkg -r telnet.deb
+    List        --------------------------------    $ dpkg –l telnet
+   Status   --------------------------------      $ dpkg –s telnet
+   Verifying    ----------------------------      $ dpkg –p <path to file>
+   
+   
+   
+                         Viewing File Sizes
+  
+  $ du -sh test.img   -----------------------  to see the file sizes
+  98M
+
+
+   $ ls –lh test.img   ---------------------------  to see the info of file 
+-rw-rw-r-- 1 99M Mar 13 15:48 test.img
+
+
+      Archiving Files
+	  
+ Note:  for this practice,  we have to create 3 files < file1 file2 file3 >  and put the data in that file min put 500 mb data...	  
+ 
+    du -sh  <filename>    ---------- to see the file size / directory 
+	  
+	tar -czvf test.tar   file1 file2 file3     ----- this command is used to compress a files
+	
+	du -sh test.tar  ---------- here see the data will decresed 
+	
+	tar -tf <tar file name>  --------- to see the files in tar 
+	
+	tar -xzvf test.tar  file1 file2 file3    ----------- to extract the files
+	
+	
+	
+	                                                Compressing / Archiving 
+													
+													
+			                          gzip  ----------------------------- this command is used to compress 
+
+ $ gzip test1.img	 ----------------------- to compress/archiveing 
+ 
+ $ du -sh test1.img.gz 
+  100K test1.img.gz
+  
+  
+  $ gunzip test1.img   ---------------------------- to extract 
+  
+  $ du -sh test2.img.gz
+  99M test1.img
+
+
+
+                           xz  -------------------------------------  this command is used to compress
+						   
+	$ xz test2.img   ------------------------------ 	 to compress/archiveing 
+
+ $ du -sh test2.img.xz  ----------------------- to see the size of the file 
+16K test2.img.xz 
+
+
+   $ unxz test2.img  ---------------------------- to extract 
+
+ $ du -sh test2.img.xz 
+99M      test2.img 
+
+
+										
+		 
+	                           bzip2   -------------------------------- to command is used to compress 
+ 
+ $ bzip2 test.img
+ 99M test1.img
+ 
+ $ du -sh test.img.bz2
+ 4.0K test.img.bz2
+ 
+ 
+   bunzip2  ------------------------------------- this command is used to extract 
+   
+  $ bunzip2  test.img.bz2 
+
+  $ du -sh test.img.bz2 
+99M test1.img  
+
+
+
+                          To see the Compressing Files data 
+						  
+           zcat / bzcat / xzcat 
+
+  $ zcat file1.txt.bz2    -------------------- to see the compress files data 
+  
+  $ bzcat file1.txt.bz2    -------------------- to see the compress files data 
+  
+  $ xzcat file1.txt.bz2    -------------------- to see the compress files data 
+  
+  
+  
+  
+                            Searching for Files and Directories
+							
+	find    -------------- this command is used to search files 
+
+  $ find /home/michael -name City.txt   ----------------------------------- 
+/home/michael/Africa/Egypt/Cairo/City.txt
+/home/michael/Asia/India/Mumbai/City.txt
+
+
+                               GREP  -------------------- IS A SEARCH TOOL
+
+ $ grep second sample.txt   -------------------- this command is used to search content in a file content is <second> file is 	sample.txt
+
+
+ $ grep -i capital sample.txt  -------------- this command is used to search a content  CASE SENSITIVE
+ 
+ $ grep -r ”third line" /home/michael    ---------------- 
+./sample.txt:And then the third line.
+
+
+
+
+                                                IO REDIRECTION -------- INPUT/OUTPUT Redirection 
+											
+											
+	STANDARD INPUT   
+          $ cat sample_text.txt  
+
+  
+   STANDARD OUTPUT
+      This is the file contents
+
+
+  STANDARD ERROR	  
+      cat: sample_text.txt: No such file
+or directory
+													  
+                                    
+                       REDIRECT STDOUT
+					   
+	$ echo $SHELL > shell.txt
+
+    $ cat shell.txt
+  /bin/bash	
+  
+  $ echo “This is the Bash shell” >> shell.txt
+  
+  $ cat shell.txt
+  /bin/bash
+This is the Bash shell
+
+
+                         REDIRECT  STDERR
+						 
+ $ cat missing_file 2> error.txt  
+
+ $ cat error.txt
+cat: missing_file: No such file or directory
+
+ $ cat missing_file 2>> shell.txt
+
+ cat shell.txt
+/bin/bash
+This is the Bash shell
+cat: missing_file: No such file or directory
+
+ $ cat missing_file 2> /dev/null 
+
+
+
+                               TEXT EDITORS
+												  
+ 1. VI 
+     command mode ----- insert mode  ------- execute mode
+	 
+	 isert mode ---------- i,o,a 
+	 
+	 yy ----------- copy the line 
+	5yy -------- 5 lines copied 
+	
+	dd   ---------------------- delete/cut  
+  8dd ------------ 8 lines deleted / cut 
+  
+   p  ----------------------- for paste
+   
+   P  ------------------------ for paste 
+   
+   u ------------------- for undo 
+   
+   r --------------------- for redo
+   
+   /boss  -------------------------------------- search content boss in a file 
+   
+   n  -------------------------------- go to next word boss 
+   
+   N  -------------------------- go to previous to boss 
+
+  
+   2. echo 
+   
+     
+	 
+	 
+	               Linux Accounts
+				   
+	1. user accounts   
+
+  $ cat /etc/passwd   ------------- to see user accounts  
+
+  $ tail -5 /etc/passwd   --------------- to see user accounts 
+
+ $ cat /etc/passwd  | grep <username>  -------------- to find user with name 
+ 
+ 
+ $ id michael
+uid=1001(michael) gid=1001(michael)groups=1001(michael),
+
+
+ 2. group accounts 
+ 
+  $ cat /etc/group  -------------------- to see group accounts
+  
+  
+  
+               Account Types
+			   
+ 1.UserAccount    2. System Accounts  3. Superuser Account  4. Service Accounts
+
+
+  1.UserAccount
+      Bob
+      michael
+      dave 
+  
+ 
+  2. System Accounts  UID < 100 OR between 500 - 100
+       ssh
+      mail  
+	  
+  3. Superuser Account	  
+     root 
+	 
+  4. Service Accounts	
+     httpd
+	 jenkins
+	 nginx
+	 
+	 
+	 
+	  
+     
+  
+  	  
+     
+                     
+					   
+ 
+  
+  
+  
+  
+
+ 
+   	
+	
+	
+	
+	
+
+	
+
+   
+
+
+
+
+
+
+
+
+   
+   
+   
+
+
+
+  
+ 
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
