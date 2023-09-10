@@ -16,5 +16,22 @@
 
 7. what is the command to see the groups
 
-8. 
+8. Change the UID 1010 to michel user,  2020 to bob, 3030 to charle, 4040 to juli
+
+9. what is the command to see the info of user bob
+
+10. Change the GID 1100 to dev group, 1200 to qa, 1300 to prod, 1400 to staging
+
+11. what is the command to see the single user charle..? 
+
+12. what is the command to delete the user.
+
+13. create some files 1.dev1.txt 2.qa1.txt 3.prod1.txt 4.staging1.txt and also write some data in taht files.
+
+14. what is the command to see the permissions of files
+
+15. Create Directory  ap/vijayawada, ap/guntur,  ap/guntur/brodipet/school.txt,  ap/vijayawada/bencirle/colleges.txt, telangana/ameerpet/institute.txt
+
+16.  
+
 
