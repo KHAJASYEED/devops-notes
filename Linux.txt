@@ -39,7 +39,7 @@
  
            Managing Users
 		   
-  $ useradd -u 1009 -g 1009 -d /home/robert -s /bin/bash -c îMercury Project member" bob
+  $ useradd -u 1009 -g 1009 -d /home/robert -s /bin/bash -c ‚ÄùMercury Project member" bob
   
      -u ---- specific UID
 	 -g ---- specific GID
@@ -52,7 +52,7 @@
   
   $ usermod -u 2020 -g 2020 bob ------------ change UID GID of bob 
   
-  $ groupadd ñg 1011 developer  -------------- change GIB of developer group 
+  $ groupmod ‚Äìg 1011 developer  -------------- change GIB of developer group 
 	 
   
     
@@ -123,7 +123,7 @@ uid=1009(bob) gid=1009(avenger) groups=1009(avenger)
 
     ssh <user>@<hostname OR IP Address>   ----------------------------
 
-    ssh ñl <user> <hostname OR IP Address>	-------------------------------
+    ssh ‚Äìl <user> <hostname OR IP Address>	-------------------------------
 
 
   
@@ -299,7 +299,7 @@ mv, date, uptime, cp,uptime e.t.c
 
  cp -r (Copy directory)
 
- $ cp ñr Europe/UK Europe/Unitedkingdom
+ $ cp ‚Äìr Europe/UK Europe/Unitedkingdom
 
 
 
@@ -418,7 +418,7 @@ fi
 	   \w ------ working dir 
 	   
 	   
- $ PS1=ìubuntu-server:î   
+ $ PS1=‚Äúubuntu-server:‚Äù   
 ubuntu-server:
 
  ubuntu-server:  echo $PS1
@@ -428,7 +428,7 @@ ubuntu-server:
   ubuntu-server: PS1="[\d \t \u@\h:\w ] $ " 
  [Thu Mar 12 22:12:54 bob@caleston:~ ] $     
 
-\d :the date in ìWeekday M onth Dateîformat (e.g.,ìTue M ay 26î)
+\d :the date in ‚ÄúWeekday M onth Date‚Äùformat (e.g.,‚ÄúTue M ay 26‚Äù)
 
 \t:the currenttime in 24-hour HH:MM :SS format
 
@@ -520,11 +520,11 @@ executable
 		 
 		 Working with RPM
 		 
-    Installation  ----------    $ rpm ñivh telnet.rpm
-    Uninstalling   -------      $ rpm ñe telnet.rpm
-    Upgrade  --------------   $ rpm ñUvh telnet.rpm
-   Query  ------------------   $ rpm ñq telnet.rpm
-   Verifying   -------------    $ rpm ñVf <path to file>RPM Based Dist
+    Installation  ----------    $ rpm ‚Äìivh telnet.rpm
+    Uninstalling   -------      $ rpm ‚Äìe telnet.rpm
+    Upgrade  --------------   $ rpm ‚ÄìUvh telnet.rpm
+   Query  ------------------   $ rpm ‚Äìq telnet.rpm
+   Verifying   -------------    $ rpm ‚ÄìVf <path to file>RPM Based Dist
    
    
    
@@ -532,9 +532,9 @@ executable
 		   
     Installation / Upgrade  --------------   $ dpkg -i telnet.deb
     Uninstalling   -------------------------     $ dpkg -r telnet.deb
-    List        --------------------------------    $ dpkg ñl telnet
-   Status   --------------------------------      $ dpkg ñs telnet
-   Verifying    ----------------------------      $ dpkg ñp <path to file>
+    List        --------------------------------    $ dpkg ‚Äìl telnet
+   Status   --------------------------------      $ dpkg ‚Äìs telnet
+   Verifying    ----------------------------      $ dpkg ‚Äìp <path to file>
    
    
    
@@ -544,7 +544,7 @@ executable
   98M
 
 
-   $ ls ñlh test.img   ---------------------------  to see the info of file 
+   $ ls ‚Äìlh test.img   ---------------------------  to see the info of file 
 -rw-rw-r-- 1 99M Mar 13 15:48 test.img
 
 
@@ -645,7 +645,7 @@ executable
 
  $ grep -i capital sample.txt  -------------- this command is used to search a content  CASE SENSITIVE
  
- $ grep -r îthird line" /home/michael    ---------------- 
+ $ grep -r ‚Äùthird line" /home/michael    ---------------- 
 ./sample.txt:And then the third line.
 
 
@@ -674,7 +674,7 @@ or directory
     $ cat shell.txt
   /bin/bash	
   
-  $ echo ìThis is the Bash shellî >> shell.txt
+  $ echo ‚ÄúThis is the Bash shell‚Äù >> shell.txt
   
   $ cat shell.txt
   /bin/bash
