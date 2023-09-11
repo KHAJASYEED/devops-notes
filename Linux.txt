@@ -52,7 +52,7 @@
   
   $ usermod -u 2020 -g 2020 bob ------------ change UID GID of bob 
   
-  $ groupmod –g 1011 developer  -------------- change GID of developer group 
+  $ groupmod –g 1011 developer  -------------- change GIB of developer group 
 	 
   
     
