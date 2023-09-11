@@ -1,0 +1,49 @@
+8. Change the UID 1010 to michel user,  2020 to bob, 3030 to charle, 4040 to juli
+
+    usermod -u 1010 -g 1010 michel
+    
+     usermod -u 2020 -g 2020 bob
+
+      usermod -u 4040 -g 4040 juli
+9. what is the command to see the info of user bob
+
+   cat /etc/passwd  | grep bob
+
+10. Change the GID 1100 to dev group, 1200 to qa, 1300 to prod, 1400 to staging
+   
+      groupmod -g 1100 dev
+       groupmod -g 1200 qa
+      groupmod -g 1300 prod
+      groupmod -g 1400 staging
+
+11. what is the command to see the single user charle..? 
+    
+    cat  /etc/passwd | grep  -i charle
+
+12. what is the command to delete the user.
+    
+     userdel michel
+
+13. create some files 1.dev1.txt 2.qa1.txt 3.prod1.txt 4.staging1.txt and also write some data in taht files.
+   
+    touch dev1.txt qa1.txt prod1.txt staging1.txt
+    vi dev1.txt
+    vi qa1.txt
+    vi prod1.txt
+    vi staging1.txt
+
+14. what is the command to see the permissions of files
+
+   ll -ltrh
+
+15. Create Directory  ap/vijayawada, ap/guntur,  ap/guntur/brodipet/school.txt,  ap/vijayawada/bencirle/colleges.txt, telangana/ameerpet/institute.txt
+   
+   [root@BlueFox ap]# mkdir vijayawada
+   [root@BlueFox guntur]# mkdir brodipet
+   [root@BlueFox brodipet]# touch school.txt
+   [root@BlueFox bencircle]# touch collegs.txt
+   [root@BlueFox ameerpet]# touch institute.txt
+
+16.  
+
+
