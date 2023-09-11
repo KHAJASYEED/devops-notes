@@ -1,0 +1,44 @@
+1. What is the command to see the hostname
+Ans: hostname
+[vagrant@dbserver devops-notes]$ hostname
+dbserver
+
+
+2. Change the hostmane <BlueFox>
+Ans: sudo vi /ect/hostname 
+change the hostname
+restart the machine
+vagrant@BlueFox ~]$ hostname
+BlueFox
+
+
+3. Create a users 1.michel 2.bob 3.charle 4.juli
+Ans for adding users 1st change to root user sudo -i
+adduser michel
+
+michel:x:3031:3031::/home/michel:/bin/bash
+bob:x:3032:3032::/home/bob:/bin/bash
+charle:x:3033:3033::/home/charle:/bin/bash
+juli:x:3034:3034::/home/juli:/bin/bash
+
+
+4. Create passwords fro all users <password123>
+Ans:passwd michel & enter password
+
+5. what is the command to see the users
+Ans: cat /etc/passwd
+
+6. Create groups 1.dev 2.qa 3.prod 4.staging
+Ans: groupadd dev
+
+dev:x:3035:
+qa:x:3036:
+prod:x:3037:
+staging:x:3038:
+
+
+7. what is the command to see the groups
+Ans: cat /etc/group
+
+8.
+
