@@ -1,0 +1,122 @@
+1. What is the command to see the hostname
+Ans: hostname
+[vagrant@dbserver devops-notes]$ hostname
+dbserver
+
+----------------------------------------------------------------------
+2. Change the hostmane <BlueFox>
+Ans: sudo vi /ect/hostname 
+change the hostname
+restart the machine
+vagrant@BlueFox ~]$ hostname
+BlueFox
+
+----------------------------------------------------------------------
+3. Create a users 1.michel 2.bob 3.charle 4.juli
+Ans for adding users 1st change to root user sudo -i
+adduser michel
+
+michel:x:3031:3031::/home/michel:/bin/bash
+bob:x:3032:3032::/home/bob:/bin/bash
+charle:x:3033:3033::/home/charle:/bin/bash
+juli:x:3034:3034::/home/juli:/bin/bash
+
+----------------------------------------------------------------------
+4. Create passwords fro all users <password123>
+Ans:passwd michel & enter password
+----------------------------------------------------------------------
+5. what is the command to see the users
+Ans: cat /etc/passwd
+----------------------------------------------------------------------
+6. Create groups 1.dev 2.qa 3.prod 4.staging
+Ans: groupadd dev
+
+dev:x:3035:
+qa:x:3036:
+prod:x:3037:
+staging:x:3038:
+
+----------------------------------------------------------------------
+7. what is the command to see the groups
+Ans: cat /etc/group
+tail -10 /etc/passwd to check the last ten lines
+
+----------------------------------------------------------------------
+
+8. Change the UID 1010 to michel user,  2020 to bob, 3030 to charle, 4040 to juli
+Ans: usermod -u <id> <user>
+
+michel:x:1010:3031::/home/michel:/bin/bash
+bob:x:2020:3032::/home/bob:/bin/bash
+charle:x:3030:3033::/home/charle:/bin/bash
+juli:x:4040:3034::/home/juli:/bin/bash
+
+----------------------------------------------------------------------
+9. what is the command to see the info of user bob
+Ans: id bob
+uid=2020(bob) gid=3032(bob) groups=3032(bob)
+----------------------------------------------------------------------
+10. Change the GID 1100 to dev group, 1200 to qa, 1300 to prod, 1400 to staging
+Ans: groupmod -g <id> <groupname>
+
+dev:x:1100:
+qa:x:1200:
+prod:x:1300:
+staging:x:1400:
+----------------------------------------------------------------------
+11. what is the command to see the single user charle..?
+Ans: id charle
+uid=3030(charle) gid=3033(charle) groups=3033(charle)
+----------------------------------------------------------------------
+12. what is the command to delete the user.
+Ans: userdel <username>
+----------------------------------------------------------------------
+13. create some files 1.dev1.txt 2.qa1.txt 3.prod1.txt 4.staging1.txt and also write some data in taht files.
+Ans: echo "text" > dev1.txt
+
+[vagrant@BlueFox linux-tasks]$ ls
+dev1.txt  prod1.txt  qa1.txt  staging1.txt
+----------------------------------------------------------------------
+14. what is the command to see the permissions of files
+Ans: ll
+
+[vagrant@BlueFox linux-tasks]$ ll
+total 16
+-rw-rw-r--. 1 vagrant vagrant 12 Sep 11 06:09 dev1.txt
+-rw-rw-r--. 1 vagrant vagrant 11 Sep 11 06:11 prod1.txt
+-rw-rw-r--. 1 vagrant vagrant 19 Sep 11 06:11 qa1.txt
+-rw-rw-r--. 1 vagrant vagrant 13 Sep 11 06:12 staging1.txt
+----------------------------------------------------------------------
+15. Create Directory  ap/vijayawada, ap/guntur,  ap/guntur/brodipet/school.txt,  ap/vijayawada/bencirle/colleges.txt, telangana/ameerpet/institute.txt
+
+mkdir -p ap/vijayawada/bencirle/
+in dir /ap/vijayawada/bencirle/ ----- echo " bencircle colleges list" > colleges.txt
+|-- ap
+|   `-- vijayawada
+|       `-- bencircle
+|           `-- school.txt
+[vagrant@BlueFox bencircle]$ cat colleges.txt 
+bencircle colleges list
+------------------------------------
+in /ap  ------ mkdir -p guntur/brodipet/
+in dir /ap/guntur/brodipet/ ------- echo " brodipet school list" > school.txt
+|-- ap
+|   |-- guntur
+|   |   `-- brodipet
+|   |       `-- school.txt
+[vagrant@BlueFox linux-tasks]$ cat ap/guntur/brodipet/school.txt 
+brodipet school list
+------------------------------------
+mkdir -p telangana/ameerpet ;echo "ameerpet institutes list" > telangana/ameerpet/institute.txt
+
+[vagrant@BlueFox linux-tasks]$ mkdir -p telangana/ameerpet ; echo "ameerpet institutes list" > telangana/ameerpet/institute.txt
+-- telangana
+    `-- ameerpet
+        `-- institute.txt
+[vagrant@BlueFox linux-tasks]$ cat telangana/ameerpet/institute.txt 
+ameerpet institutes list
+
+----------------------------------------------------------------------
+
+
+
