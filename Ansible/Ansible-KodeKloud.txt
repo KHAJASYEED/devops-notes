@@ -1,0 +1,44 @@
+
+
+                         ##########  Ansible  #######
+						 
+	Ansible is a configuration Management Tool
+    Ansible is a automation tool for configuration servers, services from control machine to targets
+	Ansible is agentless,  when we compare to other configuration tools like chef, puppet etc...
+	we install an agent in target machine, before we can invoke any kind of automation.
+
+  -- Information about these target systems is stored in an inventory file.
+ - if you dont create an inventory file, Ansible uses the default inventory file locate at  --------- /etc/ansible/hosts
+ 
+      Inventory Parameters 
+  . ansible_host
+  . ansible_connection
+  . ansible_user
+  . ansible_ssh_pass  
+	  
+ 
+	
+	
+	## Ansible configuration section #####
+
+ - Ansible has default configuration at  ------- /etc/ansible/ansible.cfg
+ - but if you want to change the defaults
+ - we have to write ansible.cfg
+ 
+   
+   
+   ### Order of ansible configuration
+   
+  - Is the global level  /etc/ansible/ansible.cfg  ,and there we uncheck the host_key_checking=false
+  
+
+        1st priority ----- ANSIBLE_CONFIG  (environment variable if set) ---- In system
+	    2nd priority ----  ansible.cfg  (In the current directory)  
+        3rd priority ---- ~/.ansible.cfg  (Hidden file create in your Home Directory) 	---- In system
+        4th priority ---- /etc/ansible/ansible.cfg (Last priority is Global priority) 	---- In system
+		
+		
+		
+
+
+	

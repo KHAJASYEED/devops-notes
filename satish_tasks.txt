@@ -191,11 +191,13 @@ port - 80:80
 tar -czvf <filename.tar> <file>
 ----------------------------------------------------------------------
 36. create 3 files , file11 file12 file13,  and compress the files
+tar -czvf
 
 37. what is the command to see the compress file data .tar
 
+
 38. what is the command to extract the file .tar
-tar 
+tar -
 ----------------------------------------------------------------------
 40. what is the command to see the file size
 du -sh  in kbs   &  ll -ltrh to show in mbs 

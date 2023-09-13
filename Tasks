@@ -16,5 +16,114 @@
 
 7. what is the command to see the groups
 
-8. 
+8. Change the UID 1010 to michel user,  2020 to bob, 3030 to charle, 4040 to juli
+
+9. what is the command to see the info of user bob
+
+10. Change the GID 1100 to dev group, 1200 to qa, 1300 to prod, 1400 to staging
+
+11. what is the command to see the single user charle..? 
+
+12. what is the command to delete the user.
+
+13. create some files 1.dev1.txt 2.qa1.txt 3.prod1.txt 4.staging1.txt and also write some data in taht files.
+
+14. what is the command to see the permissions of files
+
+15. Create Directory  ap/vijayawada, ap/guntur,  ap/guntur/brodipet/school.txt,  ap/vijayawada/bencirle/colleges.txt, telangana/ameerpet/institute.txt
+
+16. what is the command to create ssh keys
+
+17. what is the ssh port number
+
+18. what is STANDARD INPUT, STANDARD OUTPUT, STANDARD ERROR
+
+19. redirect the STANDARD INPUT to a file <stdipt.txt>
+
+20. redirect the STANDARD OUTPUT to a file <stdout.txt>
+
+21. redirect the STANDARD ERROR to a file <stderr.txt>
+
+22. what is the to see the last 8 lines
+
+23. why we use echo, some examples
+
+24. what is the command to send only error msg of the command to err.txt
+
+25. what is the command to see the shell type
+
+26. what is the command to change the shell type
+
+27. create env variable HP="it makes laptop desktop" , 
+    what is the command to check that variable
+    And persist the variable for standard, what is the path to persist that varaible
+
+28. create a file <john.txt> 
+
+29. and add this data to john.txt   "It is important to note that Master of master changing a group's ID may have unintended consequences, such as invalidating permissions master or ownership of master files that master  are Master associated with the group."
+
+30. what is the command to search a content in the file
+
+31. search content <master> in john.txt file
+
+32. serach a content both <Master,master> in ajohn.txt file  ----- case sentitive
+
+33. what is the http port number
+
+34. what is the jenkins port number
+
+35. what is the command to Archive/compress a file
+
+36. create 3 files , file11 file12 file13,  and compress the files
+
+37. what is the command to see the compress file data .tar
+
+38. what is the command to extract the file .tar
+
+40. what is the command to see the file size
+
+41. what is the command to see the file belongs to which user
+
+42. what is the command to see the PID and PPID 
+
+43. what is the command to see the RAM size
+
+44. what is the command to see the  load average,system-uptime,users-connected
+
+45. what is th command to httpd PID
+
+46. what is the package manager of centos
+
+47. what is the command to see the current shell type
+
+48. what is the command to change shell type
+
+49. what is the command to see the hidden files
+
+50. create files goat1 goat2
+
+51. change file permission rwx to user, r-x to group, r-- to others
+
+52. what is the command to see, who is the owner of the goat1 goat2
+
+53. change ownership of goat1 to juli and goat2 to bob
+
+54. add bob user to dev, qa, prod
+
+55. add juli user to prod, staging
+
+56. add michle user to qa,prod,staging
+
+57. what is the commond to see the bob user info UID,GID belongs to which group
+
+58. what is the command to see the os-version
+
+59. what is the command to start jenkins
+
+
+
+
+
+  
+ 
 
