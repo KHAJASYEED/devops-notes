@@ -1,0 +1,257 @@
+
+
+                      ########  Ansible_Labs 2  #######
+					  
+					  
+					  
+1. Can we define variables in an Ansible inventory file?
+
+No
+
+Yes
+
+A. 
+
+
+2. Can we define variables in an Ansible playbook?
+
+Yes
+
+No					  
+					  
+A. 
+
+					  
+3. Which of the following formats is used to call a variable in an Ansible playbook?
+
+'(( variable_name ))'
+
+'{ variable_name }'
+
+'{{ variable_name }}'
+
+'( variable_name )' 					  
+					  
+A. 
+
+
+4. The /home/bob/playbooks/playbook.yaml playbook is adding a name server entry in resolv.conf file on localhost. The name server information is already added to the /home/bob/playbooks/inventory file as a variable called nameserver_ip.
+
+Replace the hardcoded ip address of the name server in this playbook to use the value from the variable defined in the inventory file.
+
+
+Note: You need not to execute this playbook as of now.
+
+	$ cd playbooks/
+   playbooks]$ ls
+ansible.cfg  inventory  playbook.yaml
+   playbooks]$ vi inventory				  
+					  
+					  
+  $ cat playbook.yaml 
+---
+- name: 'Add nameserver in resolv.conf file on localhost'
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: 'Add nameserver in resolv.conf file'
+      lineinfile:
+        path: /etc/resolv.conf
+        line: 'nameserver 8.8.8.8'
+
+ playbooks]$ cat inventory 
+localhost ansible_connection=local nameserver_ip=8.8.8.8 snmp_port=160-161
+node01 ansible_host=node01 ansible_ssh_pass=caleston123
+node02 ansible_host=node02 ansible_ssh_pass=caleston123
+[web_nodes]
+node01
+node02
+
+[all:vars]
+app_list=['vim', 'sqlite', 'jq']
+user_details={'username': 'admin', 'password': 'secret_pass', 'email': 'admin@example.com'}
+
+A. 
+---
+- name: 'Add nameserver in resolv.conf file on localhost'
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: 'Add nameserver in resolv.conf file'
+      lineinfile:
+        path: /etc/resolv.conf
+        line: 'nameserver {{ nameserver_ip }}'
+		
+		
+5. We have updated the /home/bob/playbooks/playbook.yaml playbook to add a new task to disable SNMP port on localhost. However, the port is hardcoded in the playbook. Update the playbook to replace the hardcoded value of the SNMP port to use the value from the variable named snmp_port, defined in the inventory file.
+
+Note: You need not to execute this playbook as of now.
+
+$ cd playbooks/
+   playbooks]$ ls
+ansible.cfg  inventory  playbook.yaml
+   playbooks]$ vi playbook.yaml
+
+		
+---
+- name: 'Add nameserver in resolv.conf file on localhost'
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: 'Add nameserver in resolv.conf file'
+      lineinfile:
+        path: /etc/resolv.conf
+        line: 'nameserver {{  nameserver_ip  }}'
+    - name: 'Disable SNMP Port'
+      firewalld:
+        port: '160-161'
+        permanent: true
+        state: disabled
+					  
+					  
+A. 
+
+
+6. We have reset the /home/bob/playbooks/playbook.yaml playbook. Its printing some personal information of an employee. We would like to move the car_model, country_name and title values to the respective variables, and these variables should be defined at the play level.
+
+Add three new variables named car_model, country_name and title under the play and move the values over there. Use these variables within the task to remove the hardcoded values.
+
+Updated the "playbook.yaml" playbook to add the car_model, country_name and title values to the respective variables at the play level?
+
+Run the playbook to check the respective variables were added correctly.
+
+playbooks]$ vi playbook.yaml 
+
+---
+- hosts: localhost
+  tasks:
+    - command: 'echo "My car is BMW M3"'
+    - command: 'echo "I live in the USA"'
+    - command: 'echo "I work as a Systems Engineer"'
+A.
+---
+- hosts: localhost
+  vars:
+    car_model: 'BMW M3'
+    country_name: USA
+    title: 'Systems Engineer'
+  tasks:
+    - command: 'echo "My car is {{ car_model }}"'
+    - command: 'echo "I live in the {{ country_name }}"'
+    - command: 'echo "I work as a {{ title }}"'
+~                                              
+	$ ansible-playbook -i inventory playbook.yaml
+	
+	
+7. The /home/bob/playbooks/app_install.yaml playbook is responsible for installing a list of packages on a remote server(s). The list of packages to be installed is already added to the /home/bob/playbooks/inventory file as a list variable called app_list.
+
+
+
+Right now the list of packages to be installed is hardcoded in the playbook. Update the /home/bob/playbooks/app_install.yaml playbook to replace the hardcoded list of packages to use the values from the app_list variable defined in the inventory file. Once updated, please run the playbook once to make sure it works fine.
+
+CheckCompleteIncomplete
+Replaced the hardcoded list of packages in "app_install.yaml" playbook to use the values from the "app_list" variable defined in the inventory file?
+
+Run the playbook to make sure it works fine.	
+
+  playbooks]$ cat app_install.yaml 
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Install applications
+      yum:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - vim
+        - sqlite
+        - jq
+		
+A. 
+vi /home/bob/playbooks/app_install.yaml
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Install applications
+      yum:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - "{{ app_list }}"	
+		
+ansible-playbook -i inventory app_install.yaml		
+
+
+
+
+9. The /home/bob/playbooks/user_setup.yaml playbook is responsible for setting up a new user on a remote server(s). The user details like username, password, and email are already added to the /home/bob/playbooks/inventory file as a dictionary variable called user_details.
+
+Right now the user details is hardcoded in the playbook. Update the /home/bob/playbooks/user_setup.yaml playbook to replace the hardcoded values to use the values from the user_details variable defined in the inventory file. Once updated, please run the playbook once to make sure it works fine.
+
+CheckCompleteIncomplete
+Replaced the hardcoded values in "user_setup.yaml" playbook to use the values from the "user_details" variable defined in the inventory file?
+
+Run the playbook to make sure it works fine.
+
+vi /home/bob/playbooks/user_setup.yaml
+
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Set up user
+      user:
+        name: "admin"
+        password: "secret_pass"
+        comment: "admin@example.com"
+        state: present
+		
+	
+	playbooks]$ cat inventory 
+	
+localhost ansible_connection=local nameserver_ip=8.8.8.8 snmp_port=160-161
+node01 ansible_host=node01 ansible_ssh_pass=caleston123
+node02 ansible_host=node02 ansible_ssh_pass=caleston123
+[web_nodes]
+node01
+node02
+
+[all:vars]
+app_list=['vim', 'sqlite', 'jq']
+user_details={'username': 'admin', 'password': 'secret_pass', 'email': 'admin@example.com'}	
+		
+A.
+
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: Set up user
+      user:
+        name: "{{ user_details.username }}"
+        password: "{{ user_details.password }}"
+        comment: "{{ user_details.email }}"
+        state: present		
+	
+	
+	
+
+
+					  
+					  
+					  
+					  
+					  
+					  
+					  
+					  
+					  
+					  
+					  
+					  
+					  
+					  
+					  
+					  
