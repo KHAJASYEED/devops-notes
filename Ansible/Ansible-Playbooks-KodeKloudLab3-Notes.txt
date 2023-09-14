@@ -1,0 +1,158 @@
+
+
+
+               #########   Ansible-Playbooks  #####
+			   
+			   - Ansible-Playbooks, is a set of instructions provided by you,
+			   - A playbook is single yaml file, Containins a set of plays,  A plays define set of activities to be run on a single host or group of hosts.
+			   - Each play is dictonary has a set of properties 
+			                               called name, hosts, and tasks  
+			   
+	- And what we want, it is in playbook Ansible will do.
+			   
+	- All playbooks are writen in yaml format, 		   		   
+
+      - A task is a single action to be performed on a host. 
+    For Example, a task are executing a command or a script on the host,  Installing a package on the host, performing a shutdown, performing a restart, 
+
+    ---
+	- name: play1
+	  hosts: localhost
+	  vars:
+	  become: yes
+      tasks:
+        - name: Execute command 'date'
+          command: date 
+
+     	- name: Execute script on server
+           script: test_script.sh
+
+       - name: install httpd server 
+         yum: 
+            name: httpd
+            state: present
+            			
+	  - name: start web server httpd
+        service:
+           name: httpd
+           state: started	
+		   
+		   
+		   $ ansible-playbook  playbook.yaml 
+		   
+		   
+		   
+		   -----------  Verification of Playbook  ----------------------
+		   
+	- Why do we need to verify playbooks 
+          - verifying a playbook before executing it in a production environment 
+
+
+   How to verify Playbooks in Ansible?
+
+            1. Check Mode       2. Diff Mode   
+  
+     1. Check Mode
+	     - check mode is dry run mode use   -- check
+		 
+		 $ ansible-playbook ngnix_install.yaml  -- check  -------------------------------- to check it runs correctly or not
+		 
+		 
+   2.  2. Diff Mode   
+     
+	 $ ansible-playbook  ngnix_install.yaml  --check  --diff  -------------------------- give detai info about add and remove
+	 
+	 
+	   
+	          Syntax check Mode 
+    - This mode check the syntax of your playbook for any error.
+	
+	$ ansible-playbook ngnix_install.yaml  --syntax-check   ------------------------------ check the syntax of your playbook for any error.
+	
+	
+	
+	------------   Ansible-Lint  ------------------
+	
+	- Ansible-lint is a command line tool, that performing linting on ansible playbooks, roles, and collections.
+	- It checks your code for potential errors, bugs, stylistic errors 
+	
+	Let have a look to understand the full power of Ansible lint 
+	    
+		here we have a playbook   style_example.yaml
+		
+		-- in this playbook --- it has some tasks to install and configure Ngnix,  But there are somne style-related issues.  First 
+		
+		vi style_example.yaml
+		
+		---
+		- name: Style Example Playbook 
+		  hosts: localhost
+		  tasks: 
+		    - name: Ensure Ngnix is installed and started 
+			  apt:
+			    name: nginix
+				state: present / latest
+				update_cache: yes 
+				
+		   - name: Enable nginix service at  boot
+             service:			 
+                name: nginx 
+				enable: yes
+				state: started 
+				
+		  - name: Copy Nginx configuration file 
+             copy: 
+               src: /path/to/nginx.configuration
+               dest: /etc/nginx/nginx.configuration
+            notify:
+			  - Restart Nginx Service
+			  
+		 handlers: 
+           - name: 	Restart Nginx Service
+		     service: 
+			    name: nginix
+				state: restarted 
+				
+				
+	- Note we have an in consistent indentation in the playbook. 
+
+  - lets run ansible lint on this playbook to see what it finds.	
+	
+      $ ansible-lint 	style_example.yaml  
+	  
+	   see the output of the file....
+	   
+	   Asible-lint catches all these style-related issues and provides us with warnings 
+	  
+	  
+	
+			  
+   
+		   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		   
+	
+			   
+	 

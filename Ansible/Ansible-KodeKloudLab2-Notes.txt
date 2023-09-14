@@ -1,0 +1,266 @@
+
+
+                         ##########  Ansible  #######
+						 
+	Ansible is a configuration Management Tool
+    Ansible is a automation tool for configuration servers, services from control machine to targets
+	Ansible is agentless,  when we compare to other configuration tools like chef, puppet etc...
+	we install an agent in target machine, before we can invoke any kind of automation.
+
+  -- Information about these target systems is stored in an inventory file.
+ - if you dont create an inventory file, Ansible uses the default inventory file locate at  --------- /etc/ansible/hosts
+ 
+      Inventory Parameters 
+  . ansible_host
+  . ansible_connection
+  . ansible_user
+  . ansible_ssh_pass  
+	  
+ 
+	
+	
+	## Ansible configuration section #####
+
+ - Ansible has default configuration at  ------- /etc/ansible/ansible.cfg
+ - but if you want to change the defaults
+ - we have to write ansible.cfg
+ 
+   
+   
+   ### Order of ansible configuration
+   
+  - Is the global level  /etc/ansible/ansible.cfg  ,and there we uncheck the host_key_checking=false
+  
+
+        1st priority ----- ANSIBLE_CONFIG  (environment variable if set) ---- In system
+	    2nd priority ----  ansible.cfg  (In the current directory)  
+        3rd priority ---- ~/.ansible.cfg  (Hidden file create in your Home Directory) 	---- In system
+        4th priority ---- /etc/ansible/ansible.cfg (Last priority is Global priority) 	---- In system
+		
+		
+		
+		Grouping and Parent-Child Relationships
+		
+ - Imagine you are an IT administrator in a large Organisation with a complex IT Infrastructure.
+ -  You have hundreds of servers spred in multiple locations, Serving different purposes.
+                            Some are   --- web servers
+                                             --- Database servers
+                                             --- Application Servers
+
+    For Instance, if you need to update the web servers, you would have to manually specify each web server.
+       - This is not only time consumeing, but also prone to erros. 
+	   - Manageing a complex IT Infrastructure, It wouldn't be convinent if we could categorize servers based on their roles, locations, or any other criteria that make sence in our environment .
+
+  - Imagine if we could clectively identify all our web servers under a common label, say, web servers. 
+  - This would mean that wwhen an update is needed for the web servers, instead of manually specifying each server, we couls simply target web servers label.
+ - Saving of time and reduceing the risk of errors.
+
+
+     #######   Ansible Grouping  ######
+
+  - With Ansible Grouping, we create these common lables or groups to efficiently manage and operate on a set of servers at Once.
+  - Now, when you need the update the web servers, you can simply target the web servers group.
+  - And Ansible will apply the changes to all servers in that group.
+
+
+   ######  Why do we need Parent-Child Relationships  ##### 
+
+   - What if your web servers are spread accross different locations, and servers in each location need to have some location-specific configuration ?
+   - you could create a separate group for web servers in each location, But that would mean duplicating a lot of common configurations.
+
+  - This where Ansible's parent-to-child relationships come in handy. 
+ - You can create a parent group called web servers and child groups for each location, for example, web servers_US, web servers_EU , web_servers_IN
+ 
+    [web_servers_US]
+web1
+web2
+web3
+
+[web_servers_EU]
+db1
+
+[web_servers_IN]
+sql_db1
+sql_db2
+
+[web servers:children]
+web_servers_US
+web_servers_EU
+web_servers_IN
+
+      - You can define the common configuration at parent group level and location specific configuration at the child group level.
+	  - This, way you can mange your servers more efficiently and avoid configuration duplication. 
+	  
+	  In the INI format
+	  
+	      - Groups are defined using Square brackets [  ],  And hosts are listed under their respective groups  
+		  
+		  [web servers_US]
+		  server1_us
+		  server2_us
+		  
+		  [web_servers_EU]
+		  server1_eu
+		  server2_eu
+		  
+		  [web_servers_IN]
+		  server1_in
+		  server2_IN
+		  
+		- Parent-child relationships are defined using the colon children suffix.  
+		
+		[parent:children] 
+		
+		 
+  ==========================================================================================
+
+
+
+       ########   Ansible Variables   ########    
+          	  
+
+   What are Variables?
+ - Variables are used to store values, that varies with different items.
+ - We could also define variables inside the playbook.
+ - To add a variable, we could simply add a vars directive folled by variables in key: value pair format
+
+      vars:
+         dns_server: 10.1.250.10 	  
+		 
+ - We could also define variables into a file  ----> vars.yml
+
+   http_port: 8081
+   snmp_port: 161-162
+   inter_ip_range: 192.0.20.0   
+   
+   - This is now a host variable file, and all values defined in this file are available for use.
+   - Remember, this format we're useing to use variables in playbooks is called Jinja2 Templating.  {{   }} 
+   
+   - Finally, while using variables with Jinja2 Templateing, Remeber to enclose with quotes  
+   
+       source: '{{  inter_ip_range   }}'   -------------------   Remeber to enclose with quotes
+	  
+   - However, if variable is in between sentence like this, then quotes are not required
+	  
+	   source :  something{{  inter_ip_range  }}something  -------  then quotes are not required
+
+
+           -------------- Variable Types -----------------	   
+ 	
+	String Variables 
+	  - String Variables in Ansible are sequences of charecters.
+     - They can be define in a Playbook, Inventory, or Passed as command line aurguments.
+    
+        username: "admin"
+		
+   In this Example, username is a string variable with the value admin.	
+		
+		
+  Number Variables:
+    - Now Variables can hold Integer or floting-point values.
+	- They can be used in Mathematical operations.
+	
+	 max_connections: 100
+	 
+  max_connections is a number variable with the value 100
+
+
+  Boolean Variable:
+    - Boolean Variable in Ansible can hold either true or false 
+    - They are often used in conditional statements.
+	
+	debug_mode: true 
+	
+	debug_mode is a Boolean Variable with the value true.
+	
+	
+  List Variables:
+    - List Variables in Ansible can hold an ordered collection of values. 
+    - The values can be any type.
+
+       packages:
+         - nginx
+         - postgresql
+         - git
+
+   packages is a List Variable that holds 3 string values.
+   
+   
+   Dictonary Variables:
+     - Dictonary variables in Ansible can hold a collection of key-value pairs.
+    - The key and value can be of any type.
+
+       user: 
+         name: "admin"
+         password: "secret"
+
+   user is a dictonary variable that holds two key-value pairs.
+
+   - You can reference these variables in your playbook by using {{  }}  
+
+   - name: Access specific values in the dictonary
+     debug:
+        msg: "Username:{{ user.name }},Password{{ user.password }}"
+
+		
+
+    --------------- Registering Variables and Variables Precedence -----------------
+	
+	Variable Precedence
+	
+	   - It first associates the group variables and the associates the host variables.
+	   - The variable defines at the host level takes precedence over the variable defined at the group level, and that's variable precedence.
+	   
+	   Group variables
+	   
+	   Host variables
+	   
+	     - Host variables takes precedence over the group variables.
+		 
+      Group variables
+	   
+	  Host variables
+  
+      play Vars  -------- Variable set in the playbook,  takes precedence.
+	  
+	   
+	   Group variables
+	   
+	   Host variables
+  
+      play Vars   ------- Variable set in the playbook,  takes precedence.
+	  
+	  Command line  ------ ansible-playbook playbook.yaml  --extra-vars "dns_server=10.5.5.6"
+	  
+	  - The value passed in the command line is the higgest priority and overrides all other values
+	  
+	  
+	  
+	  
+	  ------------  Ansible facts  ----------
+
+	  - while runing the playbook, Ansible collects the information from the machine.
+      - These information known as facts in Ansible.
+      - Ansible gather all these facts using the setup module.
+     - the setup module is run automatically by ansible, to gather facts about the host when you run a playbook, 
+ 
+   - How do you see those facts ? 
+        - All facts are gathered by ansible are stored in a variable named "ansible_facts".
+   - Let update our playbook to print that variable insted of the msg 
+
+     tasks
+     - debug: 
+          var: ansible_facts
+
+
+   - So if you like to disable gathering facts,  you can do that by adding an option < gather_facts: no >  in a playbook 
+
+               hosts: all
+               gather_facts: no
+
+   - The behaviour of gathering facts, is a setting in ansible.cfg file   /etc/ansible/ansible.cfg     
+  - it is bt default set to implict ,   gathering  =  implicit  ( Means ansible will automatically gather facts wheter you specify it or not) 
+
+            - we can chnge it to   gathering  =  explicit 
+  
+========================================================================================================
