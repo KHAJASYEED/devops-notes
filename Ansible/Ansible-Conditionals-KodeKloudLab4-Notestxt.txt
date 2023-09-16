@@ -1,0 +1,268 @@
+
+
+
+
+                  #########  Ansible Conditionals  ########
+				  
+	Let us start with a simple examples
+
+           I have two playbooks here, that does the same thing,  Install Nginx on host.
+
+   ---
+   - name: Install Nginx on Debian               - name: Install Nginx  on Redhat        
+     hosts:                                                        hosts:
+     tasks:                                                        tasks: 
+       - name: Install Nginx                                   - name: Install Nginx
+         apt:                                                             yum:
+            name:  nginx                                               name:  nginx
+            state: present / latest			                        state: present / latest
+			
+			
+	- As you knows different OS flavoure,  use different package managers.		
+    - Debian uses APT and Redhat uses YUM,   these are two separate playbooks and you will have to use the right playbook for the respective servers.
+ 
+   - I want to create a single playbook, that works for both of these operating systems for all hosts,  So based on the operating system flavoure.
+ - My playbook run the appropriate tasks,  and that where " A CONDITIONAL STATEMENT"  comes in handy.
+
+    --- I could use the <when> conditional statement to specify  a condition for each task. 
+	 -- The task runs Only, when  the condition is "true"
+	 
+	   So what is the condition ?
+	 - checking with OS-family is Debian or Redhat.            ansible_os_family = "Debian"  
+	 
+	 
+	  ---
+   - name: Install Nginx on Debian                       
+     hosts:  all                                                    
+     tasks:                                                     
+       - name: Install Nginx                                 
+         apt:                                                           
+            name:  nginx                                               
+            state: present / latest
+	     when: ansible_os_family == "Debian"	and 
+         		   ansible_distribution_version == "20.02"
+        			
+			
+   - name: Install Nginx  on Redhat		
+	 hosts:
+	 tasks: 
+       - name: Install Nginx
+         yum:
+           name:  nginx
+           state: present / latest
+		 when: ansible_os_family == "Redhat"   or 
+		           ansible_os_family == "SUSE"
+		 
+		 
+	-   ansible_os_family  is a built-in  variable ,     Note:  make sure   ==  ( Double equals)  when checking equality in condition statement.
+
+  - You may use 
+        -   'OR' operater to specify,  either of two conditions. 	
+		
+		- or you may use 'and' operator,  so it must satisfy both conditions.
+		
+		
+		
+  --------------    CONDITIONALS IN A LOOP
+  
+      -  you may use conditional in a loop as well.  
+	  
+	    For example:    instead of a single package,  We have a list of packages that needs to be installed.
+		
+ ---
+   - name: Install Softwares              
+     hosts:  all  
+     vars: 
+       packages:
+	      - name: nginx
+		    required: True 
+		 - name: mysql
+           required: True
+        - name: apache2
+          required: False		  
+     tasks:                                                     
+       - name: Install "{{ item.name }}"  on Debian                         
+         apt:                                                           
+            name:  "{{ item.name }}"                                               
+            state: present
+			
+	     when: iteam.required == True	
+         loop: "{{ packages }}" 		 
+		
+		
+  - We have an arry named 'packages'  that has the list,    
+ -   Each item in the list has the name of the package to be installed,   as well as a property called 'required'.
+ - Install the packages only if the required property is set to true
+ 
+   First we specify the loop directive to execute the installed task in a loop.  
+   The name of the package to be installed is now item.name, and this will install all 3 packages specified.
+  
+  If i want to write a conditional for each of the 'item' ,    " when: item.required == True " .   That's how you can use conditionals in Loop.  
+  
+  
+  
+     ------------------------ CONDITIONAL  and  REGISTER  
+	 
+---
+
+- name: Check status of a Service and email if its down 
+  hosts: all 
+  tasks:
+    - command: service httpd status
+       register: result_httpd
+
+    - mail:
+        to:  admin@example.com
+        subject: Service Alert
+        body: Httpd service is down 
+
+     when: result_httpd.stdout.find( 'down' )  != -1 		
+	 	 
+	 
+	 -- To use conditionals with a output of a previous task,   We have a requirement to develop a playbook to check the status of a service and email if it's down.	 
+	 
+	 - So there are two tasks,  The first task check the status of a service,  and the second task sends an email.
+
+   - To record the output of one task,  We could use the <register>  directive,   So we say register the output,  to the variable called <result>. 
+   
+   
+     And then in the Second task.....
+	 
+	  - we use <when> conditional on that <result> variable,   To check if result.stdout has 'down' in it. 
+	  
+	  - The <find> method looks for a string with in a variable and returns its position 
+  if it's not found, It returns -1,   So our condition would be,   if it's not -1, meaning that the output does not contain the word 'down',  send an email.
+  
+  
+  
+   
+                                                             #######    Ansible-Conditionals-Based on facts, Variables    #########
+
+
+
+		   
+		- Now lets imagine your compant has mix of different servers, 
+        - Some are running Ubuntu 18.04, some are running Centos7, and others are running Windows Server 2019.
+
+  - Your Task is to automate deployment of a web application across all these servers.
+  - This means a playbook performe a different set of actions for different servers.
+
+          
+
+		  So, in Senario 1
+
+   - You need to install a specific version of Nginx Web Server , But only on the servers Ubuntu 18.04 .
+
+   How do you determine that which version of OS is running on a server?
+
+  Our Inventory file has a basic  information about the server that we know.
+  
+   -- This is where "ANISBLE-FACTS" come into play,   ansible_facts are system specific variables that can be used in playbooks.
+         - They collect the information about the servers during the execution of the playbook
+		     - You can use:      when: ansible_facts['os_family'] == 'Debian'  and  ansible_facts['distribution_major_version'] == '18'
+			 
+			 
+	- Install the specific version of Nginx  Only on the servers runing Ubuntu 18.04
+
+
+
+---
+
+- nmae: Install the Nginx service on Ubuntu 18.40
+  hosts: 
+  become: yes
+  tasks:
+    - name:  Install the Nginx service on Ubuntu 18.40
+	  apt:
+	     name: niginx=1.18.0
+		 state: present
+	 when: ansible_facts['os_family]' == 'Debian'  and ansible_facts['distribution_major_version]' == '18' 	 
+	  
+
+
+
+ So,  In Senario 2
+ 
+ - Your web application has different configuration requirements based on the evironment,   Which are development, staging and production.
+
+  - You can define a variable app_env,  to specify the environment.   Then in your playbook,  you can use this variable to deploy the appropriate configuration file for the 
+specified environment.
+
+     ---- Thisis an example of using conditinals based on variables. 
+
+
+- name: Deploy configuration files 
+  template:
+     src: "{{ app_env }}_config.j2"
+     dest: "/etc/myapp/config.conf" 
+  vars:
+    app_env: production  
+
+
+ 
+
+
+
+ So In Senario 3
+ 
+   - You have comman set of tasks that need to performed on all servers, Such as Installing neccessary software packages, createing required directories, and setting up permissions.
+   
+   However, you want to start the web application service only the servers in the " production environment ".   You can do this by defining a variable, Say,  environment 
+ and then using this variable in a conditinal statement  to start the service only when the environment is set to production. 
+ 
+    ---- Thgis is an example of using conditionals for reuse.  In all these senarious Ansibles powerful features such as facts, variables and reuse of tasks allow you to handle
+complex requirements with ease and flexibility.    THIS IS THE POWER OF " Anisble Conditionals ".	
+	
+	
+- name: Install required packages
+  apt:
+    name: 
+       - package1
+       - package2
+    state: present
+	
+- name: Create necessary directories and set permissions 
+  	
+...
+
+- name: Start Web Application Service
+  service:
+     name: myapp
+	 state: started
+  when: environment == 'production' 	 
+	
+
+  	  
+	 
+	  
+  
+  
+  
+
+   
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			
