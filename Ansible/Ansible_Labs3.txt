@@ -307,12 +307,9 @@ D. ansible configure_database.yml --syntax-check
 
 D
 
-
 A
 
-
 C
-
 
 B
 
@@ -320,7 +317,6 @@ A.
 
 
 10. You've been given a playbook named database_setup.yml that is supposed to set up a PostgreSQL database on your servers. Before deploying it, you want to ensure that it adheres to best practices and doesn't have any style-related issues.
-
 
 The initial sample playbook is as follows:
 
@@ -344,26 +340,18 @@ The initial sample playbook is as follows:
       notify:
         - Restart PostgreSQL
 
-
-
-
 Which command would you use to run ansible-lint on the database_setup.yml playbook?
-
 
 A. ansible database_setup.yml --lint
 B. ansible-lint database_setup.yml
 C. ansible-playbook database_setup.yml --lint
 D. lint-ansible database_setup.yml
 
-
 A
-
 
 B
 
-
 D
-
 
 C
 
@@ -371,7 +359,6 @@ A.
 
 
 11. Consider again the same sample playbook named database_setup.yml as shown below.
-
 
 - name: Database Setup Playbook
   hosts: db_servers
@@ -393,103 +380,74 @@ A.
       notify:
         - Restart PostgreSQL
 
-
-
-
 After running ansible-lint on the playbook, which of the following issues might you expect to see?
-
 
 A. Incorrect indentation.
 B. Deprecated 'apt' module.
 C. Missing 'name' attribute for a task.
 D. Use of a blacklisted command.
 
-
 B&D
-
 
 A&D
 
-
 B&C
-
 
 A&C
 
-
 C
-
 
 A
 
-
 C&D
-
 
 B
 
-
 D
 
-
 A&B
-
 
 A. 
 
 
 12. You've been given feedback from ansible-lint about potential issues in your hypothetical webserver_setup.yml playbook. The feedback mentions issues with indentation, deprecated modules, and missing name attributes.
 
-
-
 Which of the following is NOT a recommended action based on the feedback?
-
 
 A. Correcting the indentation in the playbook.
 B. Replacing deprecated modules with their newer counterparts.
 C. Ignoring the feedback and proceeding with playbook execution.
 D. Adding 'name' attributes to tasks that are missing them.
 
-
 C
-
 
 B
 
-
 D
-
 
 A
 
 A.  
 
-
 13. If ansible-lint provides no output after checking a playbook, what does it indicate?
-
-
 
 A. The playbook has syntax errors.
 B. The playbook is empty.
 C. The playbook adheres to best practices and has no style-related issues.
 D. ansible-lint failed to check the playbook.
 
-
 C
-
 
 D
 
-
 B
-
 
 A
 
 A. 
 
-14. Update the name of the play in /home/bob/playbooks/playbook.yaml playbook to Execute a date command on localhost.
 
+14. Update the name of the play in /home/bob/playbooks/playbook.yaml playbook to Execute a date command on localhost.
 
 CheckCompleteIncomplete
 Updated the name of the play in "playbook.yaml" playbook to "Execute a date command on localhost"?
@@ -507,11 +465,10 @@ ansible.cfg  inventory  playbook.yaml
     - name: 'Execute a date command'
       command: date
 
-
 A. 
 
-15. Update the playbook /home/bob/playbooks/playbook.yaml to add a task name Task to display hosts file for the existing task.
 
+15. Update the playbook /home/bob/playbooks/playbook.yaml to add a task name Task to display hosts file for the existing task.
 
 CheckCompleteIncomplete
 Updated the playbook "playbook.yaml" to add a task name "Task to display hosts file" for the existing task?
@@ -528,12 +485,10 @@ ansible.cfg  inventory  playbook.yaml
   become: yes
   tasks:
     - command: 'cat /etc/hosts'
-	
-	
+		
 A. 
 
 16. We have reset the playbook /home/bob/playbooks/playbook.yaml, now update it to add another task. The new task must execute the command cat /etc/resolv.conf and set its name to Task to display nameservers.
-
 
 CheckCompleteIncomplete
 Updated the "playbook.yaml" playbook to add another task named "Task to display nameservers"?
@@ -551,13 +506,11 @@ ansible.cfg  inventory  playbook.yaml
   tasks:
     - name: 'Execute a date command'
       command: date
-      
 	  
 A. 
 
 
 17.  So far, we have been running all tasks on localhost. We would now like to run these tasks on node01, this host is already defined in /home/bob/playbooks/inventory file. Update the playbook /home/bob/playbooks/playbook.yaml to run the tasks on the node01 host.
-
 
 CheckCompleteIncomplete
 Updated the playbook"playbook.yaml" to run the tasks on the "node01" host?
@@ -566,14 +519,12 @@ Updated the playbook"playbook.yaml" to run the tasks on the "node01" host?
 ansible.cfg  inventory  playbook.yaml
 [bob@student-node playbooks]$ vi playbook.yaml 
 
-
 cat inventory 
 node01 ansible_host=node01 ansible_ssh_pass=caleston123
 node02 ansible_host=node02 ansible_ssh_pass=caleston123
 [web_nodes]
 node01
 node02
-
 
 ---
 - name: 'Execute two commands on node01'
@@ -590,7 +541,6 @@ A.
 
 
 18. Refer to the /home/bob/playbooks/inventory file. We would like to run the /home/bob/playbooks/playbook.yaml on all servers defined under web_nodes group.
-
 
 Note: Use the group name in playbook as defined in the inventory file.
 
@@ -615,12 +565,9 @@ playbooks]$ cat playbook.yaml
     - name: 'Task to display hosts file'
       command: 'cat /etc/hosts'
 
-
 A. 
 
-
 19. Update the /home/bob/playbooks/playbook.yaml to add a new play named Execute a command on node02, and a task under it to execute cat /etc/hosts command on node02 host, name the task Task to display hosts file on node02.
-
 
 Refer to the given inventory file.
 
@@ -639,25 +586,6 @@ Run the playbook to make sure it works fine.
       command: date
     - name: 'Task to display hosts file on node01'
       command: 'cat /etc/hosts'	  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
