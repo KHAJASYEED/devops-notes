@@ -44,7 +44,7 @@
         			
 			
    - name: Install Nginx  on Redhat		
-	 hosts:
+	 hosts: all
 	 tasks: 
        - name: Install Nginx
          yum:
@@ -123,12 +123,12 @@
 	 
 	 - So there are two tasks,  The first task check the status of a service,  and the second task sends an email.
 
-   - To record the output of one task,  We could use the <register>  directive,   So we say register the output,  to the variable called <result>. 
+   - To record the output of one task,  We could use the <register>  directive,   So we say register the output,  to the variable called <result_httpd>. 
    
    
      And then in the Second task.....
 	 
-	  - we use <when> conditional on that <result> variable,   To check if result.stdout has 'down' in it. 
+	  - we use <when> conditional on that <result_httpd> variable,   To check if result.stdout has 'down' in it. 
 	  
 	  - The <find> method looks for a string with in a variable and returns its position 
   if it's not found, It returns -1,   So our condition would be,   if it's not -1, meaning that the output does not contain the word 'down',  send an email.
@@ -141,7 +141,7 @@
 
 
 		   
-		- Now lets imagine your compant has mix of different servers, 
+		- Now lets imagine your company has mix of different servers, 
         - Some are running Ubuntu 18.04, some are running Centos7, and others are running Windows Server 2019.
 
   - Your Task is to automate deployment of a web application across all these servers.
@@ -157,7 +157,7 @@
 
   Our Inventory file has a basic  information about the server that we know.
   
-   -- This is where "ANISBLE-FACTS" come into play,   ansible_facts are system specific variables that can be used in playbooks.
+   -- This is where "ANISBLE_FACTS" come into play,   ansible_facts are system specific variables that can be used in playbooks.
          - They collect the information about the servers during the execution of the playbook
 		     - You can use:      when: ansible_facts['os_family'] == 'Debian'  and  ansible_facts['distribution_major_version'] == '18'
 			 
@@ -188,7 +188,7 @@
   - You can define a variable app_env,  to specify the environment.   Then in your playbook,  you can use this variable to deploy the appropriate configuration file for the 
 specified environment.
 
-     ---- Thisis an example of using conditinals based on variables. 
+     ---- This is an example of using conditinals based on variables. 
 
 
 - name: Deploy configuration files 
@@ -210,8 +210,7 @@ specified environment.
    However, you want to start the web application service only the servers in the " production environment ".   You can do this by defining a variable, Say,  environment 
  and then using this variable in a conditinal statement  to start the service only when the environment is set to production. 
  
-    ---- Thgis is an example of using conditionals for reuse.  In all these senarious Ansibles powerful features such as facts, variables and reuse of tasks allow you to handle
-complex requirements with ease and flexibility.    THIS IS THE POWER OF " Anisble Conditionals ".	
+    ---- This is an example of using conditionals for reuse.  In all these senarious Ansibles powerful features such as facts, variables and reuse of tasks allow you to handle complex requirements with ease and flexibility.    THIS IS THE POWER OF " Anisble Conditionals ".	
 	
 	
 - name: Install required packages
