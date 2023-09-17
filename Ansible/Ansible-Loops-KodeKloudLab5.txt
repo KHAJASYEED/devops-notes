@@ -2,3 +2,84 @@
 
 
           #############   Ansible-Loops-KodeKloudLab5  ########
+		  
+		  
+1. 		  Can loops be executed on dictionary values in Ansible?
+
+No
+
+Yes
+		  
+A. 
+
+2. Which type of plugin with_* directives use in Ansible?
+
+system
+
+inventory
+
+lookup
+
+action		  
+
+
+A. 
+
+
+3. The playbook /home/bob/playbooks/fruits.yml currently runs an echo command to print a fruit name. Apply a loop directive (with_items) to the task to print all fruits defined under the fruits variable.
+
+CheckCompleteIncomplete
+Updated the "fruits.yml" playbook to apply a loop directive (with_items) to the task to print all fruits defined under the fruits variable?
+
+
+playbooks]$ ls
+ansible.cfg  fruits.yml  inventory  packages.yml
+
+playbooks]$ cat fruits.yml 
+---
+-  name: 'Print list of fruits'
+   hosts: localhost
+   vars:
+     fruits:
+       - Apple
+       - Banana
+       - Grapes
+       - Orange
+   tasks:
+     - command: 'echo "{{ item }}"'
+	 
+A.  
+
+
+
+4. We are attempting to install multiple packages using the yum module for a more realistic use case. The playbook /home/bob/playbooks/packages.yml installs only a single package. Update it to install all packages defined under packages variable.
+
+CheckCompleteIncomplete
+Updated the "packages.yml" playbook to install all packages defined under "packages" variable?
+
+
+playbooks]$ cat packages.yml 
+---
+- name: 'Install required packages'
+  hosts: localhost
+  become: yes
+  vars:
+    packages:
+      - httpd
+      - make
+      - vim
+  tasks:
+    - yum:
+        name: vim
+        state: present	 
+		
+		
+		
+	 
+	 
+	 
+
+
+
+
+		  
