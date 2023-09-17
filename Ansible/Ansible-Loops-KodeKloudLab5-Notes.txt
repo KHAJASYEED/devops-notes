@@ -1,0 +1,125 @@
+
+
+
+
+                       ####### Ansible Loops  ######
+					   
+ --- We are createing an Ansible Playbook to create users in a system using the user module.
+  - The user module helps to create users on the target systems.
+ - In this case we are createing one use.
+
+---
+- name: Create Users
+  hosts: all
+  tasks:
+    - user: name=jorge    state=present   
+					   
+					   
+---
+- name: Create Users
+  hosts: all
+  tasks:
+    - user:
+         name: jorge	
+         state: present   	
+					   
+	- In this case we are createing one use.
+
+ - But what if we have multiple users,  What if you have lot of users to create ?
+
+    A better way to do this woulb be to have a songle task loop over all the users. 
+     - That's where we use " LOOPS "
+
+
+         --- Loop is a looping directive that executes the same task multiple number of times.  
+	imp: -  Each time it runs, it stores the value of each item in the loop in a variable named " item ". 
+   So you can simply replace the username,  In this case, joe, with the item variable inside {{ item }}  like this.
+
+   -In this case, you are not repeateing the lines of the user module or the state.
+
+---
+- name; Createing Users
+  hosts: all
+  tasks:
+    - user: '{{ item }}'    state=present
+      loop:
+        - joe
+        - michle
+        - ansible
+        - jenkins
+        - tomcat
+        - httpd		
+					   
+	  -In this case, you are not repeateing the lines of the user module or the state.
+
+
+
+  But, if you want to create a user with uid ?  How would you write.
+  
+ - Insted of passing in an arry of strings to the loop,  I would pass in an arry of dictionaries. Each dictionary will have two key-value pairs.
+ - The keys would be name and UID,  and the values would be name and id's of each user.
+ - If you do that, what would you specify inside the task?
+ - You can no loger use '{{ item }}' inside the task, bcoz item is now not just a string.  Now we can see that the item varaible inside each task in the loop is a
+ dictionary which has the name and UID of each user.
+ - To get the username I could do '{{ item.name }}' , '{{ item.uid }}' 
+ 
+  - That's how loops work with array of strings and array of dictionaries.
+ 
+     
+  
+---
+- name; Createing Users and uid 
+  hosts: all
+  tasks:
+    - user: name='{{ item.name }}'    state=present   uid='{{ item.uid }}'
+      loop:
+        - name: joe
+		   uid: 1010 
+        - name: michle
+		  uid: 1020
+        - name: ansible
+		  uid: 1030
+        - name: jenkins
+		  uid: 1040
+        - name: tomcat
+		  uid: 1050
+        - name: httpd
+          uid: 1060		
+   	  
+  - That's how loops work with array of strings and array of dictionaries.	
+
+
+
+  ---------------  There is Another way to create loops in playbooks.
+
+ - that is using the ' with_directives ' .  This playbook that we develop can also be written using the with_itemss directive  like this.
+
+---
+- name: Create Users                                                                        - name: Create Users
+  hosts:                                                                                                hosts:
+  tasks:                                                                                                tasks:
+    - user: name='{{ item }}'     state=present                                            - user: name='{{ item }}'     state=present 
+	  loop:                                                                                                   with_items:
+        - mahesh                                                                                                - mahesh
+        - ravi                                                                                                       - ravi
+        - divya		                                                                                               - divya		
+ 
+					   
+		NOTE:  In fact the ' loop 'directive is newly added in Ansible. In the past, we just had the ' with_items ' directive. 			   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
+					   
