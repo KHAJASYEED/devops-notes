@@ -168,7 +168,12 @@ Run the playbook to make sure it works fine.
         - sqlite
         - jq
 		
+[all:vars]
+app_list=['vim', 'sqlite', 'jq']
+user_details={'username': 'admin', 'password': 'secret_pass', 'email': 'admin@example.com'}
+
 A. 
+
 vi /home/bob/playbooks/app_install.yaml
 ---
 - hosts: all
