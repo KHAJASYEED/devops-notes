@@ -95,7 +95,7 @@ $ sudo apt install ansible -y
    71  ansible -i inventory -m ping  db01
    
    
-        Using Ad-Hoc commands
+       Using Ad-Hoc commands
 
 $ ansible -i inventory -m ping web01  --------------- 
 
