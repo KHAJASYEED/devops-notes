@@ -1,0 +1,121 @@
+
+
+          ########  Install Ansible on Ubuntu 20 VM ######
+		  
+$ sudo apt update -y
+$ sudo apt install software-properties-common -y
+$ sudo add-apt-repository --yes --update ppa:ansible/ansible
+$ sudo apt install ansible -y 
+
+
+       apt search boto
+       sudo apt install python3-boto python3-boto3 python3-botocore -y
+	 
+	 
+	 
+	 cat /etc/os-release 
+    2  hostname
+    3  ls
+    4  sudo hostname Ansible
+    5  ll /etc/hostname 
+    6  sudo chmod 777 /etc/hostname 
+    7  ll /etc/hostname 
+    8  sudo chmod 777 /etc/hostname 
+   10  cat /etc/hostname 
+   12  sudo echo "Ansible" > /etc/hostname 
+  
+  17  vi ansible_install.sh
+   sudo apt update -y
+   sudo apt install software-properties-common -y
+   sudo add-apt-repository --yes --update ppa:ansible/ansible
+   sudo apt install ansible -y 
+   
+   19  sh ansible_install.sh 
+   
+   20  ansible --version
+   
+    26  sudo apt update -y
+   
+   24  apt search boto
+   
+   38  python3 --version
+   
+   39  sudo apt install python3-boto python3-boto3 python3-botocore -y
+   
+   28  cat /etc/os-release 
+   29  ping 92.168.56.9
+   30  ping 192.168.56.10
+   31  ping 192.168.56.11
+   32  ping 192.168.56.12
+   
+   34  cat /etc/hosts
+  
+  35  sudo vi /etc/hosts
+   ansible   192.168.56.9
+   web01   192.168.56.10
+   web02  192.168.56.11
+   db01     192.168.56.12
+   
+   36  ping web01
+   37  ping web02
+         ping db01
+   
+   
+   40  ls
+   41  mkdir playbooks
+   42  cd playbooks/
+   43  mkdir execrise01
+   44  cd execrise01/
+   45  vi inventory
+   46  ansible -i inventory ping web01
+   47  ansible -i inventory ping web01 --become
+   48  vi ansible.cfg
+   49  ansible -i inventory ping web01 --become
+   50  vi ansible.cfg
+   51  ansible -i inventory ping web01 --become
+   52  vi inventory
+   53  ansible -i inventory ping web01 --become
+   54  vi inventory
+   55  ansible -i inventory ping web01 --become
+   56  ansible -i inventory -m ping web01 --become
+   57  vi inventory
+   58  ansible -i inventory -m ping web01 --become
+   59  vi ansible.cfg
+   60  ansible -i inventory -m ping web01 --become
+   61  su web01
+   62  ssh web01
+   63  ansible -i inventory -m ping --ask-pass  web01 --become
+   64  vi inventory
+   65  ansible -i inventory -m ping  web01 --become
+   66  vi inventory
+   67  ansible -i inventory -m ping  web01 --become
+   68  ansible -i inventory -m ping  web02 --become
+   69  vi inventory
+   70  ansible -i inventory -m ping  db01 --become
+   71  ansible -i inventory -m ping  db01
+   
+   
+        Using Ad-Hoc commands
+
+$ ansible -i inventory -m ping web01  --------------- 
+
+   ansible -i inventory -m ping all  / '*'  ----------------------
+
+$ ansible -i inventory -m yum  -a  "name=httpd state=present" web01 --become  ------------- Install httpd on web01
+
+$ ansible -i inventory -m yum  -a  "name=httpd state=present" web01 --become   ----------- Remove httpd on web01
+
+$ ansible -i inventory -m service  -a  "name=httpd  state=started  enableyes" web01  --become   --------- Start httpd service 
+
+- create file named <index.html> wirte some text in that. 
+
+$ ansible -i inventory -m copy  -a  "src=index.htm  dest=/var/www/html/index.html" web01   --become  ------- copy the file   
+   
+   
+   
+   
+   
+   
+   
+   
+   

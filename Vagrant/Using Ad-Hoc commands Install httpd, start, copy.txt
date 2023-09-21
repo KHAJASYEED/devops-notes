@@ -1,0 +1,18 @@
+
+
+         Using Ad-Hoc commands
+
+$ ansible -i inventory -m ping web01  --------------- 
+
+   ansible -i inventory -m ping all  / '*'  ----------------------
+
+$ ansible -i inventory -m yum  -a  "name=httpd state=present" web01 --become  ------------- Install httpd on web01
+
+$ ansible -i inventory -m yum  -a  "name=httpd state=present" web01 --become   ----------- Remove httpd on web01
+
+$ ansible -i inventory -m service  -a  "name=httpd  state=started  enableyes" web01  --become   --------- Start httpd service 
+
+- create file named <index.html> wirte some text in that. 
+
+$ ansible -i inventory -m copy  -a  "src=index.htm  dest=/var/www/html/index.html" web01   --become  ------- copy the file   
+   
