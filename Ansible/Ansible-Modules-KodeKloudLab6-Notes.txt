@@ -1,0 +1,563 @@
+
+
+
+                          #########   Ansible-Modules-KodeKloudLab6-Notes   ##########
+						  
+ Ansible Modules:  are categorized into various groups based on their functionality.
+ some of them are Listed here
+   - system     ----------- Sytem modules are actions to be performed on system level, such as modifying users and groups on the sytem etc...
+  
+  - commands ---- command module is used to execyte commands on the hosts.
+     ( command, script, shell, raw, expect)
+
+   - files  -------  file modules are used to copy, archive, lineinfile, in a file
+
+   - Database  ----- Database modules help in  working with databases such as MangoDB, MySql, etc... 
+
+   - cloud  --------- The cloud section has a vast collection of clouds for various different cloud providers. like Amazon, Azure, Docker, Google.
+
+   - windows  ----- 	windows module help in working windows environment.
+
+  And more.....   check in "module index" 
+  
+  
+  
+  
+1.  Which of the following Ansible modules support free_form parameter?
+
+
+service
+
+command
+
+copy
+
+lineinfile
+
+A. 
+
+
+2.  Does Ansible support idempotancy?
+
+Yes
+
+No
+
+A.
+
+
+3. Which of the following commands we can use to see the information about Ansible modules from command line?
+
+ansible-doc
+
+ansible --help
+
+ansible-info
+
+ansible-help
+
+A. 
+
+
+4. Which Ansible module is used in the following playbook?
+
+---
+- hosts: localhost
+  become: yes
+  become_user: root
+  tasks:
+    - name: create user
+      user:
+        name: admin
+`
+
+localhost
+
+user
+
+become
+
+become_user  
+						  
+A. 
+
+
+5. Which of the following statements are true about lineinfile Ansible module?
+
+
+A. It only adds the given line in file if that line doesn't exist in that file.
+
+B. It adds the given line in file even if that line already exists in that file.
+
+C. It replaces all existing lines in the file with a new given line.
+
+D. It keeps the existing lines as well and add a new given line in the file.
+
+
+D & A
+
+D & C
+
+A & C
+
+A & B						  
+						  
+A. 
+
+
+6. What are Ansible system modules used for?
+
+
+A. System modules are basically used to create/update files and directories.
+
+B. System modules are actions to be performed at a system level such as modifying the users and groups on a system, modifying iptables, starting/stopping the service etc.
+
+C. System modules are used to execute commands or scripts on a system.
+
+D. System modules are used to install and setup packages on a system.
+
+
+D
+
+C
+
+B
+
+A						  
+						  
+						  
+A. 
+
+
+7. Your organization uses a proprietary cloud service that is not natively supported by Ansible. You need to develop a custom Ansible module to interact with this cloud service's API and provision resources.
+
+
+Which type of the Ansible plugins allows you to integrate with a cloud provider's API for custom resource provisioning?
+
+
+a. Connection Plugin
+
+b. Lookup Plugin
+
+c. Module Plugin
+
+d. Action Plugin
+
+A. 
+
+
+8. 
+
+b
+
+c
+
+a
+
+d			
+
+
+A. Module Plugin allows you to integrate with a cloud provider's API for custom resource provisioning.
+
+
+8. You've developed a custom module named custom_cloud. To test this module in a playbook named deploy.yml, which of the following task definitions is correct?
+
+a.
+
+- name: Provision custom cloud resource
+  action: custom_cloud
+  args:
+    param1: value1
+    param2: value2
+
+
+b.
+
+- name: Provision custom cloud resource
+  module: custom_cloud
+  parameters:
+    - param1: value1
+    - param2: value2
+
+
+c.
+
+- name: Provision custom cloud resource
+  custom_cloud:
+    param1: value1
+    param2: value2
+
+
+d.
+
+- name: Provision custom cloud resource
+  use_module: custom_cloud
+  with_args:
+    param1: value1
+    param2: value2
+
+
+d
+
+b
+
+c
+
+a			  
+						  
+
+A.  - name: Provision custom cloud resource
+  custom_cloud:
+    param1: value1
+    param2: value2
+
+
+9. You are tasked with setting up an Ansible playbook that automates the deployment of applications on AWS ec2 instances. Before running the playbook, you need to ensure that Ansible has an up-to-date inventory of all ec2 instances in your AWS account.
+
+Which type of Ansible plugin would you use to fetch real-time information about your AWS ec2 instances?
+
+a. Lookup Plugin
+
+b. Filter Plugin
+
+c. Callback Plugin
+
+d. Dynamic Inventory Plugin
+
+
+c
+
+b
+
+d
+
+a	
+						  
+A. Dynamic Inventory Plugin will be used to fetch real-time information about your AWS ec2 instances.
+
+
+10. You have a custom dynamic inventory script named aws_inventory.py. Which command would you use to list all hosts in your AWS inventory using this script?
+
+a. ansible-inventory --list -i aws_inventory.py
+b. ansible-playbook --inventory aws_inventory.py
+c. ansible aws_inventory.py --list-hosts
+d. ansible-list --inventory aws_inventory.py
+
+a
+
+b
+
+c
+
+d						  
+						  
+A. ansible-inventory --list -i aws_inventory.py
+
+
+11. You are tasked with finding a module in Ansible that helps manage Cisco devices. Using the Modules & Plugins Index, which of the following modules is specifically designed for managing Cisco IOS devices?
+
+
+a. cisco.config
+
+b. cisco.ios
+
+c. cisco.setup
+
+d. cisco.network
+
+
+d
+
+c
+
+b
+
+a						  
+						  
+A. cisco.ios module is specifically designed for managing Cisco IOS devices.
+
+
+13. Which of the following is not a key parameter available for cisco.ios module?
+
+
+a. hostname
+
+b. password
+
+c. ios_version
+
+d. username
+
+
+c
+
+b
+
+a
+
+d						  
+						  
+						  
+A. ios_version is not a key parameter available for this module.		
+
+
+
+14. Which of the following Ansible versions is cisco.ios module likely to be compatible with?
+
+
+Note: This can be a hypothetical answer; the actual version compatibility would need to be checked in the Modules & Plugins Index.
+
+
+a. Ansible 1.5
+
+b. Ansible 2.8
+
+c. Ansible 3.1
+
+d. Ansible 4.0
+
+
+b
+
+a
+
+d
+
+c		  
+						  
+						  
+A. Ansible 2.8 Ansible version is likely to be compatible with cisco.ios module.
+
+
+
+15. You're planning to deploy an application on AWS and need to set up ec2 instances using Ansible. Which module is primarily used for managing ec2 instances?
+
+a. aws_instance
+
+b. aws_ec2_config
+
+c. ec2_instance
+
+d. aws_setup
+
+a
+
+d
+
+c
+
+b						  
+						  
+A. 
+
+
+16. Update the playbook named playbook.yaml under /home/bob/playbooks directory with a task named Execute a script to run a script. The script is located at /tmp/install_script.sh on student-node.
+
+Use the script module.
+
+
+Note: There is already an inventory file /home/bob/playbooks/inventory present on student-node system.
+
+CheckCompleteIncomplete
+Cleanup.
+
+Updated the "playbook.yaml" playbook to add a task named "Execute a script to run a script"?
+
+"playbook.yaml" playbook executed the "install_script.sh" script on "node01" host?
+
+"playbook.yaml" playbook executed the "install_script.sh" script on "node02" host?		
+
+
+A.
+vi /home/bob/playbooks/playbook.yaml 
+
+Update the playbook as below.
+
+---
+- name: 'hosts'
+  hosts: all
+  become: yes
+  tasks:
+    - name: 'Execute a script'
+      script: '/tmp/install_script.sh'
+
+
+
+Run the playbook.
+
+
+cd /home/bob/playbooks/
+ansible-playbook -i inventory playbook.yaml 				  
+						  
+
+17. 	Update the playbook /home/bob/playbooks/playbook.yaml to add a new task to start httpd service on all web nodes defined in /home/bob/playbooks/inventory file.
+
+
+Use the service module.
+
+
+CheckCompleteIncomplete
+Cleanup.
+
+Updated the "playbook.yaml" playbook to add a new task to start "httpd" service on all web nodes defined in "inventory" file?
+
+"playbook.yaml" playbook started the "httpd" service on "node01" host?
+
+"playbook.yaml" playbook started the "httpd" service on "node02" host?
+
+
+playbooks]$ cat playbook.yaml 
+---
+- name: 'hosts'
+  hosts: all
+  become: yes
+  tasks:
+    - name: 'Execute a script'
+      script: '/tmp/install_script.sh' 
+
+
+A. 
+
+vi /home/bob/playbooks/playbook.yaml 
+
+
+
+Update the playbook as below.
+
+
+---
+- name: 'hosts'
+  hosts: all
+  become: yes
+  tasks:
+    - name: 'Execute a script'
+      script: '/tmp/install_script.sh'
+    - name: 'Start httpd service'
+      service:
+        name: 'httpd'
+        state: 'started'
+
+
+
+Run the playbook.
+
+
+cd /home/bob/playbooks/
+ansible-playbook -i inventory playbook.yaml 		
+
+
+
+18. Update the playbook /home/bob/playbooks/playbook.yaml to append the /var/www/html/index.html file on all web nodes. The line needs to be added is Welcome to ansible-beginning course, create the index.html file if doesn't exist.
+
+
+Use the lineinfile module.
+
+CheckCompleteIncomplete
+Cleanup.
+
+Updated the "playbook.yaml" playbook to append the "Welcome to ansible-beginning course" line in "index.html" file on all web nodes?
+
+"playbook.yaml" playbook appended the "Welcome to ansible-beginning course" line in "index.html" file on "node01" host?
+
+"playbook.yaml" playbook appended the "Welcome to ansible-beginning course" line in "index.html" file on "node02" host?
+
+
+playbooks]$ cat  playbook.yaml 
+---
+- name: 'hosts'
+  hosts: all
+  become: yes
+  tasks:
+    - name: 'Execute a script'
+      script: '/tmp/install_script.sh'    
+    - name: 'Start httpd service'
+      service:
+        name: 'httpd'
+        state: 'started'
+
+
+A. Update playbook as below:
+
+---
+- name: 'hosts'
+  hosts: all
+  become: yes
+  tasks:
+    - name: 'Execute a script'
+      script: '/tmp/install_script.sh'
+    - name: 'Start httpd service'
+      service:
+        name: 'httpd'
+        state: 'started'
+    - name: "Create or update index.html file."
+      lineinfile:
+        path: /var/www/html/index.html
+        line: "Welcome to ansible-beginning course"
+        create: true		
+		
+		
+19. Update the playbook /home/bob/playbooks/playbook.yaml to add a new task to create a new user called web_user.
+
+Use the user module for this task. You can find the user details as below.
+
+Username: web_user
+uid: 1040
+group: developers
+
+
+CheckCompleteIncomplete
+Cleanup.
+
+Updated the "playbook.yaml" playbook to add a new task to create a new user called "web_user"?
+
+"playbook.yaml" playbook added a new user called "web_user" on "node01" host?
+
+"playbook.yaml" playbook added a new user called "web_user" on "node02" host?
+
+playbooks]$ cat  playbook.yaml 
+---
+- name: 'hosts'
+  hosts: all
+  become: yes
+  tasks:
+    - name: 'Execute a script'
+      script: '/tmp/install_script.sh'
+    - name: 'Start httpd service'
+      service:
+        name: 'httpd'
+        state: 'started'
+    - name: "Update /var/www/html/index.html"
+      lineinfile:
+        path: /var/www/html/index.html
+        line: "Welcome to ansible-beginning course"
+        create: true
+
+
+
+A. 
+---
+- name: 'hosts'
+  hosts: all
+  become: yes
+  tasks:
+    - name: 'Execute a script'
+      script: '/tmp/install_script.sh'
+    - name: 'Start httpd service'
+      service:
+        name: 'httpd'
+        state: 'started'
+    - name: "Update /var/www/html/index.html"
+      lineinfile:
+        path: /var/www/html/index.html
+        line: "Welcome to ansible-beginning course"
+        create: true
+    - name: 'Create a new user'
+      user:
+        name: 'web_user'
+        uid: 1040
+        group: 'developers'		
+						  
+						  
+						  
+						  
+						  
