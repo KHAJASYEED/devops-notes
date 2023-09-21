@@ -102,6 +102,94 @@ modifying the configuration file alone does not apply the changes immediately.
    - and move your code to that directory.
 
  - So how do you use your role within your playbook.?
+ 
+  --- How can my playbook find the role..?  There are different ways to do that 
+  
+---
+- name: Install and Configure MySql
+  hosts: db-server01
+  tasks:
+  roles:
+     - mysql
+	 
+  - i could create a directory called roles with in my playbook folder,  And move the role i created <mysql> under it.
+  - When the playbook runs ansible looks for a role named mysql under the roles dorectory. that's one way of doing it.
+  
+  OR, you can move the roles to a comman directory designated fir our roles on your system at  "  /etc/ansible/roles " location.
+  
+  OR, Of course,  that's defined in the Ansible configuration file "  /etc/ansible/ansible.cfg  "  as roles_path = /etc/ansible/roles  
+  
+  
+         ----------------------   TO FIND ROLES   ----------
+		 
+  - you can search Ansible galaxy in the browser
+
+   $ ansible-galaxy search mysql  ------- To search in CLI 
+   
+   $ ansible-galaxy install geerlingguy.mysql   ------------- to install role 
+    - role default location  -----  "  /etc/ansible/roles /  .ansible/roles " directory 
+	
+	$ ansible-galaxy install kodekloud1.mysql  --------------------------------------
+	
+	
+	
+	
+	$ ansible-config  dump | grep ROLE   ------------ To search the Ansible configuration using this command 
+
+	
+	$ ansible-galaxy list   ----------------- To list Roles
+# /home/vagrant/.ansible/roles
+- geerlingguy.mysql, 4.3.3
+# /etc/ansible/roles
+
+	
+	- the roles can now be used in your playbook, by specifying the nmae like this an array of strings as role names.
+	
+	---
+	- name: Install and Configure MySql
+      hosts: 
+      roles:
+         - role:  geerlingguy.mysql
+		   become: yes
+		   vars: 
+		      mysql_user_name: db-user    
+			  
+			  
+			  
+	-- To configure a single server with both database and web application on it, Assign both roles to it.
+
+---
+- name: Install and Configre MySql
+   hosts: db-and-webserver
+   roles:
+     - geerlingguy.mysql
+	 - nginx
+	 
+	 
+	-- TO configue it seperately on seperate servers,  Create two plays in the playbook, And assign the respective roles to them.
+
+---
+- name: Install and Configure MySql
+  hosts: db-server
+  roles:
+    - role:   geerlingguy.mysql
+	
+- name: Install and Configure Web-Server
+  hosts: web-server
+  roles:
+    - role:  nginx
+	   
+         
+			  
+		 
+		 
+  		 
+  
+   
+  
+  
+ 
+ 
     
 
 
