@@ -77,32 +77,39 @@ drwxr-xr-x  2 root root 4096 Oct 25  2022 roles/
    43  mkdir execrise01
    44  cd execrise01/
    45  vi inventory
-   46  ansible -i inventory ping web01
+web01 ansible_host=192.168.56.10 ansible_user=vagrant ansible_ssh_pass=vagrant
+
+web02 ansible_host=192.168.56.11 ansible_user=vagrant ansible_ssh_pass=vagrant
+
+db01 ansible_host=192.168.56.12 ansible_user=vagrant ansible_ssh_pass=vagrant
+
+   :wq
+   
    47  ansible -i inventory ping web01 --become
-   48  vi ansible.cfg
-   49  ansible -i inventory ping web01 --become
-   50  vi ansible.cfg
-   51  ansible -i inventory ping web01 --become
-   52  vi inventory
-   53  ansible -i inventory ping web01 --become
-   54  vi inventory
-   55  ansible -i inventory ping web01 --become
+  
+  48  vi ansible.cfg
+  
+  [defaults]
+# host_key_checking = False
+# forks = 5 
+# inventory = ./inventory
+# log_path = /var/log/ansible.log
+# remote_user=ec2-user
+   
+[privilege_escalation]
+# become = True
+# become_ask_pass = False
+    
+   
    56  ansible -i inventory -m ping web01 --become
-   57  vi inventory
-   58  ansible -i inventory -m ping web01 --become
-   59  vi ansible.cfg
-   60  ansible -i inventory -m ping web01 --become
-   61  su web01
-   62  ssh web01
-   63  ansible -i inventory -m ping --ask-pass  web01 --become
-   64  vi inventory
-   65  ansible -i inventory -m ping  web01 --become
-   66  vi inventory
-   67  ansible -i inventory -m ping  web01 --become
+   
+   
    68  ansible -i inventory -m ping  web02 --become
-   69  vi inventory
+  
    70  ansible -i inventory -m ping  db01 --become
-   71  ansible -i inventory -m ping  db01
+  
+  71  ansible -i inventory -m ping  db01
+   
    
    
        Using Ad-Hoc commands
@@ -113,9 +120,9 @@ $ ansible -i inventory -m ping web01  ---------------
 
 $ ansible -i inventory -m yum  -a  "name=httpd state=present" web01 --become  ------------- Install httpd on web01
 
-$ ansible -i inventory -m yum  -a  "name=httpd state=present" web01 --become   ----------- Remove httpd on web01
+$ ansible -i inventory -m yum  -a  "name=httpd state=absent" web01 --become   ----------- Remove httpd on web01
 
-$ ansible -i inventory -m service  -a  "name=httpd  state=started  enableyes" web01  --become   --------- Start httpd service 
+$ ansible -i inventory -m service  -a  "name=httpd  state=started  enabled=yes" web01  --become   --------- Start httpd service 
 
 - create file named <index.html> wirte some text in that. 
 
