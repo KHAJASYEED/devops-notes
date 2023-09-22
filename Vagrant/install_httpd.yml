@@ -1,0 +1,13 @@
+---
+- name: Install and Started Httpd
+  hosts: webgrp
+  become: yes
+  tasks: 
+    - name: Install Httpd on CentOS
+      yum: name=httpd state=present
+
+    - name: Started and Enabled Httpd
+      service:
+        name: httpd
+        state: started
+        enabled: yes
