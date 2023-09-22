@@ -4,7 +4,7 @@
 
 $ ansible -i inventory -m ping web01  --------------- 
 
-   ansible -i inventory -m ping all  / '*'  ----------------------
+$  ansible -i inventory -m ping all  / '*'  ----------------------
 
 $ ansible -i inventory -m yum  -a  "name=httpd state=present" web01 --become  ------------- Install httpd on web01
 
