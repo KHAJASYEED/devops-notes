@@ -10,6 +10,16 @@ $ sudo apt install ansible -y
 
        apt search boto
        sudo apt install python3-boto python3-boto3 python3-botocore -y
+	   
+# ll -ltrh  /etc/ansible/   ---------------------------------------------- default location of Ansible 
+
+-rw-r--r--  1 root root  614 Jan 31  2022 ansible.cfg
+-rw-r--r--  1 root root 1018 Jan 31  2022 hosts
+drwxr-xr-x  2 root root 4096 Oct 25  2022 roles/
+
+
+
+ $ sudo remove ansible  -y  --------------------------  To un-install Ansible.
 	 
 	 
 	 
