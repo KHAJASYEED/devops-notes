@@ -1,0 +1,135 @@
+
+
+
+                #########  Install Docker on Ubuntu 20  #####
+				
+This example downloads the script, and runs it to install the latest stable release of Docker on Linux
+
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+
+Steps to install Docker on ubuntu 20
+
+   login to terminal --> vi install_docker.sh
+   
+!#/bin/bash   
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
+
+  :wq
+  
+  $ sh install_docker.sh   ----------------------------- Run the script install_docker.sh
+  
+  $ docker --version  -------------- to check the version of docker
+  
+  $ sudo docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+  $ w    ------------------------------- to check the user, uptime, load average,
+  
+  /var/lib/docker   ------------------------------------  Default location of docker
+  
+  $ sudo cd /var/lib/docker/    ---------------------------- throws the error
+sudo: cd: command not found
+  
+  
+  NOTE:   When we install docker in our machine, docker creates a group Named <docker>, And the default user:group is root
+  
+  $ sudo -i   --------------- to change to root user
+  
+  # docker ps --------------------------------------------------- this command is used to show running containers.
+  
+  # ls /var/lib/docker/    -----------------------------------------------------------
+buildkit    engine-id  network   plugins   swarm  volumes
+containers  image      overlay2  runtimes  tmp
+
+ # docker pull centos   ----------------------- Pull centos image from docker hub
+ 
+ # docker images
+REPOSITORY    TAG       IMAGE ID       CREATED        SIZE
+hello-world   latest    9c7a54a9a43c   4 months ago   13.3kB
+centos        latest    5d0da3dc9764   2 years ago    231MB
+
+  #  docker run -it centos bash  ------------- It runs centos image, and create container 
+  
+  # cat /etc/os-release  ---------------------- now we are in centos
+  
+  # clt+d  ------ to exit from container 
+  
+  #  docker ps --------------------------------------------------- this command is used to show running containers.
+  
+  # docker ps -a ------------------------- It shows all running and exited containers.
+  
+  # docker run -d centos sleep 60    ----------- it runs container for 60 seconds and Exited
+
+  # docker stop <container name >   --------------- To stop the container 
+
+ # docker rm <contianer name>  ------------ to remove container
+ 
+  # docker images  ------------ to see all images
+
+  # docker rmi <image name>  ---------  to remove images from our local machine
+
+  # docker exec -it <container name / container id>   bash    --------------------  to enter into the container.
+        - i  -------  Interactive
+		- t  ------- Terminal
+  
+  # docker run redid:4.0  --------  it pull redis:4.0 , and run that image     '4.0' is a version / Tag 
+  
+  
+  
+                  #########   PORT MAPPING  ######
+				  
+	# docker pull jenkins/jenkins
+ 
+   #  docker run -d -p 5000:8080  jenkins/jenkins    ----------------- 
+   
+   
+    ##########  Volume Mapping  ######
+	
+	- How data persist in a docker container 
+	
+	$ ls /var/lib/jenkins   ----------------  jenkins data stored in this location.
+	
+ - what happen when we delete container,  All data in that container will be lost
+
+  
+  - To persist data , we would map a directory outside the container of the docker.
+
+
+   create a directory in /opt/jenkins_data    And    Map that directory to /var/lib/jenkins
+
+    # docker run -v /opt/jenkins_data:/var/lib/jenkins  jenkins/jenkins  
+	
+	
+	   ########   docker inspect  #########
+	
+	
+	#  docker inspect <containe name>   -------  to additional details about the container 
+
+	
+	
+	########   docker logs     #########
+	
+	
+	#  docker logs  <containername>     --------------  to see the logs of container 
+
+   
+
+    
+
+
+
+
+  
+  
+  
+  
+  
+  
+
+  
+  
+   
+   
