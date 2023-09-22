@@ -1,0 +1,14 @@
+web01 ansible_host=192.168.56.10 ansible_user=vagrant ansible_ssh_pass=vagrant
+
+web02 ansible_host=192.168.56.11 ansible_user=vagrant ansible_ssh_pass=vagrant
+
+db01 ansible_host=192.168.56.12 ansible_user=vagrant ansible_ssh_pass=vagrant
+
+[webgrp]
+web01
+web02
+
+[dbgrp]
+db01
+
+
