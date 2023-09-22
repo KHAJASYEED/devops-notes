@@ -43,22 +43,22 @@ $ sudo apt install ansible -y
    39  sudo apt install python3-boto python3-boto3 python3-botocore -y
    
    28  cat /etc/os-release 
-   29  ping 92.168.56.9
+   29  ping 192.168.56.9
    30  ping 192.168.56.10
    31  ping 192.168.56.11
    32  ping 192.168.56.12
    
    34  cat /etc/hosts
   
-  35  sudo vi /etc/hosts
+  35 sudo vi /etc/hosts
    ansible   192.168.56.9
-   web01   192.168.56.10
-   web02  192.168.56.11
-   db01     192.168.56.12
+   web01     192.168.56.10
+   web02     192.168.56.11
+   db01      192.168.56.12
    
    36  ping web01
    37  ping web02
-         ping db01
+       ping db01
    
    
    40  ls
