@@ -1,0 +1,30 @@
+
+
+
+                    ########   Installing Python Sample-web-app  ######    MANUALLY
+					
+					
+  - Insatll docker on Ubuntu20 
+  
+  # sudo -install
+  # docker ps
+  
+  # docker run -it ubuntu bash  ------- It create container of ubuntu imange,  And Exec into that   
+					
+					
+					
+	1  cat /etc/os-release      ---------------------------------- to check the OS Version
+    3  apt update -y    ----------------------------------
+    5  apt install python3 -y
+    8  python3
+   14  apt install python3-pip -y
+   15  pip
+   16  pip install flask
+   17  cat > /opt/app.py
+   
+   
+   18  cat /opt/app.py 
+   19  cd /opt/
+   20  ls
+   21  FLASK_APP=app.py flask run --host=0.0.0.0   -------- run this command
+				
