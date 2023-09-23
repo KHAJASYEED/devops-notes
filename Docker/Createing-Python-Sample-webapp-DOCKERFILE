@@ -1,0 +1,47 @@
+
+
+
+                ########   Createing  Python Sample-web-app  ######    DOCKERFILE
+				
+				
+ --- go to terminal  ----> mkdir my-simple-webapp   ----> cd  my-simple-webapp 
+
+    #  vi Dockerfile
+
+  FROM  ubuntu
+  
+# USER  root
+  
+# Install Python dependencies
+  
+RUN  apt update -y
+RUN  apt install python3 python3-pip -y
+  
+RUN  pip install flask
+# RUN  pip install flask-mysql
+  
+# Copy the Source
+  
+COPY app.py  /opt/app.py   
+# WORKDIR  /opt
+
+ENTRYPOINT  FLASK_APP=/opt/app.py  flask run --host=0.0.0.0
+
+
+   :wq
+
+ mkdir my-simple-webapp # " copy the app.py in this directory" 
+ 
+ $ ls my-simple-webapp/
+app.py  Dockerfile
+
+
+  $ docker build .     ----------------- this command is used to build a Docker image
+  
+  $ docker images   -------- to see docker images
+  
+  $ docker build . -t my-python-webapp  -------- give name to image < my-python-webapp >
+  
+  $ docker images   -------- to see docker images
+
+  $ docker run   my-python-webapp 

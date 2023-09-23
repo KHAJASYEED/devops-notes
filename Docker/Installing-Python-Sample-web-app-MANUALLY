@@ -21,7 +21,7 @@
    15  pip
    16  pip install flask
    17  cat > /opt/app.py
-   
+    https://github.com/KHAJASYEED/devops-notes/blob/bluefox/Docker/src/app.py   ----- copy src from this URL
    
    18  cat /opt/app.py 
    19  cd /opt/
