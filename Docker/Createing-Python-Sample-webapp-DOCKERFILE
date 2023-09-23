@@ -27,10 +27,10 @@ COPY app.py  /opt/app.py
 
 ENTRYPOINT  FLASK_APP=/opt/app.py  flask run --host=0.0.0.0
 
-
    :wq
 
- mkdir my-simple-webapp # " copy the app.py in this directory" 
+
+ my-simple-webapp # " copy the app.py in this directory" 
  
  $ ls my-simple-webapp/
 app.py  Dockerfile
@@ -45,3 +45,4 @@ app.py  Dockerfile
   $ docker images   -------- to see docker images
 
   $ docker run   my-python-webapp 
+
