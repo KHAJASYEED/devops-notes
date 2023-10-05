@@ -1,0 +1,57 @@
+
+
+
+               ##########  Kubernetes   ######
+			   
+ TO understand Kubernetes, First we understand two things..
+    1. Containers
+    2. Orchestration
+	
+	Kubernetes --- Is a container Orchestration technology used to Orchestrate the deployment and management of hundreds  and thousands of containers in a cluster enviroment..
+	
+	 Nodes: 
+	   - A node is a machine, Physcial or Virtual on which Kubernetes is Installed.
+	   - A node is a worker machine, that is where Containers will be launched by Kubernetes.
+	   
+	   
+	Cluster:
+      - A Cluster is a set of Nodes grouped together. 
+    - This way even if one node fails,  your application still accessable from the other nodes.
+
+  NOTE: now we have a cluster, But who is responsible for manageing the cluster.
+
+That's fro the Master comes in....
+
+    Master node:
+      - The Master is an-other node with Kubernetes installed in it and is configured as a Master
+      - The Master watches the nodes in the Cluster and he is responsible for the Orchestration of Containers on the worker nodes
+
+
+   Components of Kubernetes:
+     - API Server
+    
+     - etcd	
+	
+	- controller
+	
+	- schedular
+	
+	- container runtime (Docker) 
+	
+	- kubelet
+	
+	
+	
+1.	How many nodes are part of the cluster?
+A.	$ kubectl get nodes
+	
+2. What is the version of Kubernetes running on the nodes ?
+
+A. $  kubectl version
+
+3. What is the flavor and version of Operating System on which the Kubernetes nodes are running?
+
+A. kubectl get nodes -o wide ------ it will give the detailed info of container 
+
+
+	

@@ -1,0 +1,75 @@
+
+
+       ###### Jenkins Master and Slave Configuration   #########
+	   
+	   - for this we need two Virtual Machines
+	   
+	     - One for Master Node and An-other for Slave Node
+		 
+		 -- Initally we are going to run java based Application On Slave Node. to run Node.js Application 
+		 
+		   
+		 ------------    STEPS TO FOLLOW ----------
+		 
+		 -  Jenkins server and Slave Node
+		 - Install java on slave Node ;  Install maven
+		 - Configure slave node under manage nodes if Jenkins master
+		 - Download agent.jar on slave node
+		 - Run java command to connect with jenkins server
+		 
+		
+
+
+	                ##  For Master Node 	
+		 
+		 - Create an Instance with ubuntu20 AMI,      We are taking Ubuntu20 ---- for Master Node
+		 - install java 11 on it,  install jenkins on it,  Install maven on it......  jenkins rins on port 8080
+		 - copy the public ip, and paste it inthe browser.
+		 
+	go to jenkins UI  ---> 	 manage jenkins  ---- nodes  --- new node --- name== jenkins-agent01,  ---- Description == This is for to build java Applications ---
+Number of executors = 2 --- Remote root directory == /opt/build  (it will create build directory, if the directory isn't available) ---- Labels = java-build-node  ------  
+  Usage -- Use this node as much as possible
+             -- Only build jobs with label expressions matching this node
+			 
+ Launch method == Launch agent by connecting it to the master 
+                             Launch agent via execution of command on the controller
+Custom WorkDir path == "we can coustom dir for jenkins-agent  OR it will take deafult one from Remote root dir " 
+
+Use WebSocket == check 
+
+Availability = Keep this agent online as much as possible
+                   Bring this agent online according to a schedule
+                   Bring this agent online when in demand, and take offline when idle    
+				   
+	Once you save above configuration you will get a command which should be executed in the agent. it contains agent.jar, a secret-file,			   
+				   
+				   
+	curl -sO http://192.168.56.9:8080/jnlpJars/agent.jar
+java -jar agent.jar -jnlpUrl http://192.168.56.9:8080/computer/java%2Dnode/jenkins-agent.jnlp -secret 243de8fc9f91cd3477b947974a221e83fcf3bad0ee76eb70b6d0376492e96feb -workDir "/opt/build"		
+
+ - go to jenkins-agent server  ---- cd /opt /   ------ $ sudo curl -sO http://192.168.56.9:8080/jnlpJars/agent.jar  ------ 	$ sudo ava -jar agent.jar -jnlpUrl http://192.168.56.9:8080/computer/java%2Dnode/jenkins-agent.jnlp -secret 243de8fc9f91cd3477b947974a221e83fcf3bad0ee76eb70b6d0376492e96feb -workDir "/opt/build"  
+
+
+ - Once connected you can create or edit a job to chose this option in the "Restrict where this project can be run"  -- in jenkins UI
+
+  go to jenkins ---- create a job named " agent-run"  ----- freestyle  ----- ok 
+
+  in general tab, Mark "Restrict where this project can be run" ,  Label Expression = jenkins-agent 
+
+ in Build steps --- Execute shell  
+                         uptime
+                        echo $WORKSPACE 
+						
+						click on save....
+						
+	-- Build now  ------ click on build id  ----- consoul output ----  Here we can see Remotely on jenkins-agent.
+
+
+           -----------------   And do More Experiments on this job  -----------------------	
+				   
+				   
+
+
+	 
+		 
+		 
